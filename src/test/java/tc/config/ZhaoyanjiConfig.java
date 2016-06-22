@@ -14,6 +14,7 @@ public class ZhaoyanjiConfig {
 
     //通用url相关配置
     public static String host = "mobileapi.eetop.com/";
+    public static String SanYeHost = "shop.eetop.com/";
     public static String common_path = "";
     public static int port = 0;
 }

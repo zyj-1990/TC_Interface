@@ -15,5 +15,6 @@
     <orderEntry type="library" name="httpcore-4.2.1" level="project" />
     <orderEntry type="library" name="log4j" level="project" />
     <orderEntry type="library" name="json应用jar包" level="project" />
+    <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.9.2" level="project" />
   </component>
 </module>
