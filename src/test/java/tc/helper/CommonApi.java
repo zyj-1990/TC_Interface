@@ -11,8 +11,8 @@ public class CommonApi {
         return err_msg;
     }
 
-    public static String get_ErrorCode(JSONObject json){
-        String error_code = json.getJSONObject("status").getString("error_code");
+    public static int get_ErrorCode(JSONObject json){
+        int error_code = json.getJSONObject("status").getInt("error_code");
         return error_code;
     }
 
