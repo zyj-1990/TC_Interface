@@ -52,15 +52,7 @@ public class Create extends ZhaoyanjiConfig{
         List<Entity> entities = new ArrayList<Entity>();
         entities.add(new Entity(data));
 
-        List<Parameter> paras = new ArrayList<Parameter>();
-        paras.add(new Parameter("user_account",user_account));
-        paras.add(new Parameter("password",password));
-        paras.add(new Parameter("version",version));
-        paras.add(new Parameter("global_user_id",global_user_id));
-        paras.add(new Parameter("status",0));
-        paras.add(new Parameter("page",1));
-
-        Http httpRequest = new Http("get", paras, headers, null);
+        Http httpRequest = new Http("get", null, headers, entities);
         JSONObject res = HttpRequest.sendRequest(httpRequest, host, "gchat/create");
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
