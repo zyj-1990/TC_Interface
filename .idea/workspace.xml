@@ -3,16 +3,27 @@
   <component name="ChangeListManager">
     <list default="true" id="af1229a2-8818-430e-b2e6-16d85547d679" name="默认的" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/Index/NewIndex.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/user/AttEnt.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/user/CancelAtt.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/test-classes/tc/testcase/Index/Notices.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/tc/config/ZhaoyanjiConfig.class" afterPath="$PROJECT_DIR$/target/test-classes/tc/config/ZhaoyanjiConfig.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/tc/testcase/Index/CloseFeatureList.class" afterPath="$PROJECT_DIR$/target/test-classes/tc/testcase/Index/CloseFeatureList.class" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/Index/CloseFeatureList.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/test-classes/tc/testcase/Notices.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/test-classes/tc/testcase/Person.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/tc/testcase/Notices.java" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/tc/testcase/Person.java" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Person.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/tc/helper/CommonApi.class" afterPath="$PROJECT_DIR$/target/test-classes/tc/helper/CommonApi.class" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/tc/utils/HttpRequest.class" afterPath="$PROJECT_DIR$/target/test-classes/tc/utils/HttpRequest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/tc/config/ZhaoyanjiConfig.java" afterPath="$PROJECT_DIR$/src/test/java/tc/config/ZhaoyanjiConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java" afterPath="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/tc/helper/CommonApi.java" afterPath="$PROJECT_DIR$/src/test/java/tc/helper/CommonApi.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/tc/utils/HttpRequest.java" afterPath="$PROJECT_DIR$/src/test/java/tc/utils/HttpRequest.java" />
 =======
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/testng_6_8_8.xml" />
@@ -59,10 +70,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <caret line="163" column="25" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="25" />
+=======
+              <caret line="224" column="49" selection-start-line="224" selection-start-column="49" selection-end-line="224" selection-end-column="49" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#search#0;class#HttpRequest#0" expanded="false" />
+                <element signature="method#sendRequest#0;class#HttpRequest#0" expanded="false" />
                 <element signature="method#sendRequest_EntityOrParas#0;class#HttpRequest#0" expanded="false" />
               </folding>
 =======
@@ -78,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Person.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
+              <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -95,12 +111,18 @@
         </entry>
       </file>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <file leaf-file-name="AttEnt.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/user/AttEnt.java">
+=======
+      <file leaf-file-name="CloseFeatureList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/CloseFeatureList.java">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="68" selection-end-column="5" />
+              <caret line="44" column="67" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="67" />
               <folding>
+<<<<<<< HEAD
                 <element signature="imports" expanded="true" />
               </folding>
 =======
@@ -132,11 +154,15 @@
                 <element signature="imports" expanded="true" />
                 <element signature="e#1778#1786#0" expanded="true" />
                 <element signature="e#1876#1887#0" expanded="true" />
+=======
+                <element signature="e#1373#1381#0" expanded="true" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="CloseFeatureList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/CloseFeatureList.java">
@@ -150,20 +176,31 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
 >>>>>>> origin/master
+=======
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.62322944">
+              <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
               <folding />
             </state>
           </provider>
         </entry>
       </file>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <file leaf-file-name="NewIndex.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/NewIndex.java">
+=======
+      <file leaf-file-name="Notices.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+              <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1128#1139#0" expanded="true" />
               </folding>
 =======
       <file leaf-file-name="InMember.java" pinned="false" current-in-tab="false">
@@ -177,6 +214,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <file leaf-file-name="Notices.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java">
@@ -196,6 +234,8 @@
         </entry>
       </file>
 <<<<<<< HEAD
+=======
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <file leaf-file-name="CardList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/IntegralRecord/CardList.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -221,10 +261,14 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
 =======
               <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
 >>>>>>> origin/master
+=======
+              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
               <folding />
             </state>
           </provider>
@@ -290,11 +334,10 @@
 <<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Person.java" />
         <option value="$PROJECT_DIR$/src/test/java/tc/helper/CommonApi.java" />
-        <option value="$PROJECT_DIR$/src/test/java/tc/testcase/Index/CloseFeatureList.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java" />
         <option value="$PROJECT_DIR$/src/test/java/tc/config/ZhaoyanjiConfig.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java" />
         <option value="$PROJECT_DIR$/src/test/java/tc/utils/HttpRequest.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/test/java/tc/testcase/Index/NewIndex.java" />
         <option value="$PROJECT_DIR$/src/test/java/tc/testcase/user/CancleAtt.java" />
         <option value="$PROJECT_DIR$/src/test/java/tc/testcase/user/AttEnt.java" />
@@ -309,6 +352,10 @@
         <option value="$PROJECT_DIR$/src/test/java/tc/helper/CommonApi.java" />
         <option value="$PROJECT_DIR$/src/test/java/tc/testcase/gchat/Create.java" />
 >>>>>>> origin/master
+=======
+        <option value="$PROJECT_DIR$/src/test/java/tc/testcase/Index/CloseFeatureList.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       </list>
     </option>
   </component>
@@ -355,7 +402,11 @@
     <OptionsSetting value="true" id="状态" />
     <OptionsSetting value="true" id="编辑" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ConfirmationsSetting value="2" id="添加" />
+=======
+    <ConfirmationsSetting value="0" id="添加" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     <ConfirmationsSetting value="0" id="移除" />
 =======
     <ConfirmationsSetting value="2" id="Add" />
@@ -377,8 +428,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -523,6 +575,7 @@
           </PATH>
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="PackagesPane">
         <subPane />
       </pane>
@@ -531,6 +584,8 @@
 =======
       <pane id="Scope" />
 >>>>>>> origin/master
+=======
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -555,15 +610,20 @@
     </key>
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="RunManager" selected="TestNG.CancelAtt">
     <configuration default="false" name="NewIndex.newIndex" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
 =======
   <component name="RunManager" selected="TestNG.Notices">
     <configuration default="false" name="IntegralRecord.integralRecord" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
 >>>>>>> origin/master
+=======
+  <component name="RunManager" selected="TestNG.CloseFeatureList.CloseFeatureList">
+    <configuration default="false" name="IntegralRecord.integralRecord" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="tc.testcase.Index.*" />
+          <option name="PATTERN" value="tc.testcase.IntegralRecord.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -571,6 +631,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <option name="PACKAGE_NAME" value="tc.testcase.Index" />
       <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.NewIndex" />
@@ -580,6 +641,11 @@
       <option name="MAIN_CLASS_NAME" value="tc.testcase.IntegralRecord.IntegralRecord" />
       <option name="METHOD_NAME" value="integralRecord" />
 >>>>>>> origin/master
+=======
+      <option name="PACKAGE_NAME" value="tc.testcase" />
+      <option name="MAIN_CLASS_NAME" value="tc.testcase.IntegralRecord.IntegralRecord" />
+      <option name="METHOD_NAME" value="integralRecord" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <option name="GROUP_NAME" />
       <option name="TEST_OBJECT" value="METHOD" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -600,13 +666,17 @@
       <method />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration default="false" name="NewIndex" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
 =======
     <configuration default="false" name="CardList.cardList" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
 >>>>>>> origin/master
+=======
+    <configuration default="false" name="CardList.cardList" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="tc.testcase.Index.*" />
+          <option name="PATTERN" value="tc.testcase.IntegralRecord.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -614,6 +684,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <option name="PACKAGE_NAME" value="tc.testcase.Index" />
       <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.NewIndex" />
@@ -623,8 +694,13 @@
       <option name="MAIN_CLASS_NAME" value="tc.testcase.IntegralRecord.CardList" />
       <option name="METHOD_NAME" value="cardList" />
 >>>>>>> origin/master
+=======
+      <option name="PACKAGE_NAME" value="tc.testcase.IntegralRecord" />
+      <option name="MAIN_CLASS_NAME" value="tc.testcase.IntegralRecord.CardList" />
+      <option name="METHOD_NAME" value="cardList" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="TEST_OBJECT" value="METHOD" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -643,7 +719,11 @@
       <method />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration default="false" name="Person" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+=======
+    <configuration default="false" name="CloseFeatureList.CloseFeatureList" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="tc.testcase.Index.*" />
@@ -655,9 +735,10 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" />
       <option name="PACKAGE_NAME" value="tc.testcase.Index" />
-      <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.Person" />
-      <option name="METHOD_NAME" />
+      <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.CloseFeatureList" />
+      <option name="METHOD_NAME" value="CloseFeatureList" />
       <option name="GROUP_NAME" />
+<<<<<<< HEAD
       <option name="TEST_OBJECT" value="CLASS" />
 =======
     <configuration default="false" name="E:/workspace/TC_Interface/test-xml/testng.xml" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
@@ -672,6 +753,9 @@
       <option name="GROUP_NAME" />
       <option name="TEST_OBJECT" value="SUITE" />
 >>>>>>> origin/master
+=======
+      <option name="TEST_OBJECT" value="METHOD" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -690,7 +774,11 @@
       <method />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration default="false" name="Person.person" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+=======
+    <configuration default="false" name="CloseFeatureList" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="tc.testcase.Index.*" />
@@ -709,6 +797,7 @@
       <option name="SUITE_NAME" />
 <<<<<<< HEAD
       <option name="PACKAGE_NAME" value="tc.testcase.Index" />
+<<<<<<< HEAD
       <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.Person" />
       <option name="METHOD_NAME" value="person" />
 =======
@@ -716,8 +805,12 @@
       <option name="MAIN_CLASS_NAME" value="tc.testcase.CrashCoupons" />
       <option name="METHOD_NAME" value="crashCoupons" />
 >>>>>>> origin/master
+=======
+      <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.CloseFeatureList" />
+      <option name="METHOD_NAME" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -736,6 +829,7 @@
       <method />
     </configuration>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <configuration default="false" name="CancelAtt" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -746,6 +840,12 @@
         <pattern>
           <option name="PATTERN" value="tc.testcase.*" />
 >>>>>>> origin/master
+=======
+    <configuration default="false" name="CloseFeatureList (1)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="tc.testcase.Index.*" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -754,12 +854,17 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <option name="PACKAGE_NAME" value="tc.testcase.user" />
       <option name="MAIN_CLASS_NAME" value="tc.testcase.user.CancelAtt" />
 =======
       <option name="PACKAGE_NAME" value="tc.testcase" />
       <option name="MAIN_CLASS_NAME" value="tc.testcase.Notices" />
 >>>>>>> origin/master
+=======
+      <option name="PACKAGE_NAME" value="tc.testcase.Index" />
+      <option name="MAIN_CLASS_NAME" value="tc.testcase.Index.CloseFeatureList" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <option name="METHOD_NAME" />
       <option name="GROUP_NAME" />
       <option name="TEST_OBJECT" value="CLASS" />
@@ -1236,6 +1341,7 @@
     </configuration>
     <list size="5">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <item index="0" class="java.lang.String" itemvalue="TestNG.NewIndex.newIndex" />
       <item index="1" class="java.lang.String" itemvalue="TestNG.NewIndex" />
       <item index="2" class="java.lang.String" itemvalue="TestNG.Person" />
@@ -1264,6 +1370,21 @@
         <item index="3" class="java.lang.String" itemvalue="TestNG.CardList.cardList" />
         <item index="4" class="java.lang.String" itemvalue="TestNG.IntegralRecord.integralRecord" />
 >>>>>>> origin/master
+=======
+      <item index="0" class="java.lang.String" itemvalue="TestNG.IntegralRecord.integralRecord" />
+      <item index="1" class="java.lang.String" itemvalue="TestNG.CardList.cardList" />
+      <item index="2" class="java.lang.String" itemvalue="TestNG.CloseFeatureList.CloseFeatureList" />
+      <item index="3" class="java.lang.String" itemvalue="TestNG.CloseFeatureList" />
+      <item index="4" class="java.lang.String" itemvalue="TestNG.CloseFeatureList (1)" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="TestNG.CloseFeatureList.CloseFeatureList" />
+        <item index="1" class="java.lang.String" itemvalue="TestNG.CloseFeatureList (1)" />
+        <item index="2" class="java.lang.String" itemvalue="TestNG.CloseFeatureList" />
+        <item index="3" class="java.lang.String" itemvalue="TestNG.CardList.cardList" />
+        <item index="4" class="java.lang.String" itemvalue="TestNG.IntegralRecord.integralRecord" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       </list>
     </recent_temporary>
     <configuration default="true" type="Applet" factoryName="小应用程序">
@@ -1325,6 +1446,7 @@
       <workItem from="1466314835316" duration="929000" />
 <<<<<<< HEAD
       <workItem from="1466522171943" duration="3177000" />
+<<<<<<< HEAD
       <workItem from="1466607159279" duration="2412000" />
 =======
       <workItem from="1466471066916" duration="438000" />
@@ -1339,33 +1461,46 @@
       <workItem from="1466574177004" duration="446000" />
       <workItem from="1466643884366" duration="3600000" />
 >>>>>>> origin/master
+=======
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     </task>
     <servers />
   </component>
   <component name="TestHistory">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <history-entry file="CancelAtt - 2016.06.23 at 00h 05m 01s.xml">
       <configuration name="CancelAtt" configurationId="TestNG" />
+=======
+    <history-entry file="CloseFeatureList - 2016.06.21 at 23h 50m 36s.xml">
+      <configuration name="CloseFeatureList" configurationId="TestNG" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     </history-entry>
-    <history-entry file="NewIndex - 2016.06.22 at 23h 44m 48s.xml">
-      <configuration name="NewIndex" configurationId="TestNG" />
+    <history-entry file="CloseFeatureList_(1) - 2016.06.21 at 23h 51m 39s.xml">
+      <configuration name="CloseFeatureList (1)" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="NewIndex - 2016.06.22 at 23h 45m 37s.xml">
-      <configuration name="NewIndex" configurationId="TestNG" />
+    <history-entry file="CloseFeatureList_CloseFeatureList - 2016.06.21 at 23h 41m 45s.xml">
+      <configuration name="CloseFeatureList.CloseFeatureList" configurationId="TestNG" />
     </history-entry>
+<<<<<<< HEAD
     <history-entry file="NewIndex - 2016.06.22 at 23h 48m 02s.xml">
       <configuration name="NewIndex" configurationId="TestNG" />
 =======
     <history-entry file="CrashCoupons_crashCoupons - 2016.06.19 at 12h 01m 27s.xml">
       <configuration name="CrashCoupons.crashCoupons" configurationId="TestNG" />
 >>>>>>> origin/master
+=======
+    <history-entry file="CloseFeatureList_CloseFeatureList - 2016.06.21 at 23h 42m 32s.xml">
+      <configuration name="CloseFeatureList.CloseFeatureList" configurationId="TestNG" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     </history-entry>
-    <history-entry file="NewIndex - 2016.06.22 at 23h 48m 56s.xml">
-      <configuration name="NewIndex" configurationId="TestNG" />
+    <history-entry file="CloseFeatureList_CloseFeatureList - 2016.06.21 at 23h 53m 47s.xml">
+      <configuration name="CloseFeatureList.CloseFeatureList" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="NewIndex - 2016.06.22 at 23h 49m 19s.xml">
-      <configuration name="NewIndex" configurationId="TestNG" />
+    <history-entry file="CrashCoupons_crashCoupons - 2016.06.19 at 12h 10m 53s.xml">
+      <configuration name="CrashCoupons.crashCoupons" configurationId="TestNG" />
     </history-entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <history-entry file="NewIndex - 2016.06.22 at 23h 53m 27s.xml">
       <configuration name="NewIndex" configurationId="TestNG" />
@@ -1388,17 +1523,28 @@
     <history-entry file="Notices_notices - 2016.06.19 at 13h 34m 44s.xml">
       <configuration name="Notices.notices" configurationId="TestNG" />
 >>>>>>> origin/master
+=======
+    <history-entry file="IntegralRecord_integralRecord - 2016.06.19 at 13h 45m 53s.xml">
+      <configuration name="IntegralRecord.integralRecord" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="Person - 2016.06.22 at 23h 52m 03s.xml">
-      <configuration name="Person" configurationId="TestNG" />
+    <history-entry file="Notices_notices - 2016.06.19 at 13h 34m 44s.xml">
+      <configuration name="Notices.notices" configurationId="TestNG" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     </history-entry>
-    <history-entry file="Person_person - 2016.06.22 at 23h 53m 48s.xml">
+    <history-entry file="Notices_notices - 2016.06.19 at 13h 36m 55s.xml">
+      <configuration name="Notices.notices" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="Person_person - 2016.06.19 at 13h 38m 13s.xml">
       <configuration name="Person.person" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="22706000" />
+=======
+    <option name="totallyTimeSpent" value="20294000" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="709" extended-state="7" />
@@ -1428,21 +1574,28 @@
       <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5591572" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17179903" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33549434" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23828755" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23828755" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="设计师" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+<<<<<<< HEAD
 =======
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
 >>>>>>> origin/master
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1480,6 +1633,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Person.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1541,6 +1695,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/utils/HttpRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1548,6 +1704,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#search#0;class#HttpRequest#0" expanded="false" />
+            <element signature="method#sendRequest#0;class#HttpRequest#0" expanded="false" />
             <element signature="method#sendRequest_EntityOrParas#0;class#HttpRequest#0" expanded="false" />
           </folding>
         </state>
@@ -1567,7 +1724,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="62" selection-start-line="32" selection-start-column="62" selection-end-line="32" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1575,6 +1734,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1629,6 +1789,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#search#0;class#HttpRequest#0" expanded="false" />
+            <element signature="method#sendRequest#0;class#HttpRequest#0" expanded="false" />
             <element signature="method#sendRequest_EntityOrParas#0;class#HttpRequest#0" expanded="false" />
           </folding>
         </state>
@@ -1648,7 +1809,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="62" selection-start-line="32" selection-start-column="62" selection-end-line="32" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1656,8 +1819,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+<<<<<<< HEAD
 =======
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/IntegralRecord/CardList.java">
+=======
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/CrashCoupons.java">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1695,10 +1866,14 @@
         <state vertical-scroll-proportion="0.0">
 <<<<<<< HEAD
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+<<<<<<< HEAD
 =======
           <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
           <folding />
 >>>>>>> origin/master
+=======
+          <folding />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
         </state>
       </provider>
     </entry>
@@ -1707,6 +1882,7 @@
         <state vertical-scroll-proportion="0.0">
 <<<<<<< HEAD
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1717,6 +1893,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#search#0;class#HttpRequest#0" expanded="false" />
+            <element signature="method#sendRequest#0;class#HttpRequest#0" expanded="false" />
             <element signature="method#sendRequest_EntityOrParas#0;class#HttpRequest#0" expanded="false" />
           </folding>
         </state>
@@ -1776,6 +1953,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0966058">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1783,6 +1961,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1816,6 +1995,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20304568">
           <caret line="6" column="24" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1831,6 +2011,7 @@
       </provider>
     </entry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.034483">
@@ -1839,6 +2020,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/IntegralRecord/CardList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1849,25 +2032,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tc/utils/HttpRequest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/tc/config/ZhaoyanjiConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="163" column="25" selection-start-line="163" selection-start-column="16" selection-end-line="163" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#search#0;class#HttpRequest#0" expanded="false" />
-            <element signature="method#sendRequest_EntityOrParas#0;class#HttpRequest#0" expanded="false" />
-          </folding>
+          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/NewIndex.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Person.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1128#1139#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1875,6 +2053,7 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Notices.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="36" selection-end-column="54" />
 =======
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/gchat/InMember.java">
@@ -1888,11 +2067,24 @@
     </entry>
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/Person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
+=======
+          <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tc/utils/HttpRequest.java">
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="224" column="49" selection-start-line="224" selection-start-column="49" selection-end-line="224" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#search#0;class#HttpRequest#0" expanded="false" />
+            <element signature="method#sendRequest#0;class#HttpRequest#0" expanded="false" />
+            <element signature="method#sendRequest_EntityOrParas#0;class#HttpRequest#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1900,6 +2092,7 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/Index/CloseFeatureList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="67" selection-end-column="5" />
           <folding />
         </state>
@@ -1924,14 +2117,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="68" selection-end-column="5" />
+=======
+          <caret line="44" column="67" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="67" />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1373#1381#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tc/testcase/user/CancelAtt.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.6956522">
           <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
 =======
@@ -1945,6 +2142,11 @@
             <element signature="e#1778#1786#0" expanded="true" />
             <element signature="e#1876#1887#0" expanded="true" />
           </folding>
+=======
+        <state vertical-scroll-proportion="0.62322944">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding />
+>>>>>>> parent of b2fb7e3... 修改host为测试，添加新的接口测试代码
         </state>
       </provider>
     </entry>

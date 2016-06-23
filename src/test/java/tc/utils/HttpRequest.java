@@ -150,18 +150,14 @@ public class HttpRequest {
 
     public static JSONObject sendRequest(Http httpRequest, String host, String path) throws Exception{
         HttpUriRequest request = null;
-        String totalPath = path;
         URIBuilder builder = new URIBuilder();
 
         List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
-//                builder.setParameter(p.getName(), p.getValue().toString());
-                totalPath = totalPath + "/" +p.getName() + "/" + p.getValue();
+                builder.setParameter(p.getName(), p.getValue().toString());
             }
         }
-        System.out.println(totalPath);
-        builder.setScheme("http").setHost(host).setPath(totalPath);
         String url = builder.build().toString();
 
         if (httpRequest.getConnection().equalsIgnoreCase("post")) {
@@ -228,17 +224,19 @@ public class HttpRequest {
 
     public static JSONObject sendRequest_EntityOrParas(Http httpRequest, String host, String path) throws Exception{
         HttpUriRequest request = null;
+        String totalPath = path;
         URIBuilder builder = new URIBuilder();
-        builder.setScheme("http").setHost(host).setPath(path);
 
         List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
-                builder.setParameter(p.getName(), p.getValue().toString());
+//                builder.setParameter(p.getName(), p.getValue().toString());
+                totalPath = totalPath + "/" +p.getName() + "/" + p.getValue();
             }
         }
+        System.out.println(totalPath);
+        builder.setScheme("http").setHost(host).setPath(totalPath);
         String url = builder.build().toString();
-        System.out.println(url);
 
         if (httpRequest.getConnection().equalsIgnoreCase("post")) {
             logger.info("   [  post  ] " + url);
