@@ -2,12 +2,23 @@ package tc.utils;
 
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.MultipartPostMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
@@ -17,6 +28,8 @@ import tc.config.ZhaoyanjiConfig;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.io.File;
+import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.List;
@@ -296,6 +309,46 @@ public class HttpRequest {
                 return null;
             }
 
+        }
+    }
+
+    public static JSONObject sendMultiPartRequest(String url,List<Parameter> paras,String fileKey,File file) throws Exception {
+        System.out.println();
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        MultipartEntity entity = new MultipartEntity();
+
+        if (paras != null) {
+            for (Parameter p : paras) {
+                entity.addPart(p.getName(), new StringBody(p.getValue().toString()));
+            }
+        }
+        if(fileKey != null && file != null){
+            FileBody fb = new FileBody(file);
+            entity.addPart(fileKey, fb);
+        }
+
+        post.setEntity(entity);
+        HttpResponse response = httpClient.execute(post);
+        String resString = "";
+        if (response.getEntity() != null)
+            resString = EntityUtils.toString(response.getEntity(), "UTF-8");
+        // 当没有可返回的JSONObject时，默认打印出Http响应码
+        if (resString.isEmpty()) {
+            int code = response.getStatusLine().getStatusCode();
+            logger.info("INFO: Didn't get HTTP return entity, response code is: " + code);
+            return null;
+        } else {
+            try {
+                JSONObject responseJson = JSONObject.fromObject(resString);
+                logger.info("   [Response] " + responseJson);
+                return responseJson;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                logger.warn("INFO: Http response is NOT JSON format, it is " + resString);
+                return null;
+            }
         }
     }
 

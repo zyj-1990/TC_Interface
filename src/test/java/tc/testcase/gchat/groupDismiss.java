@@ -68,6 +68,6 @@ public class GroupDismiss extends ZhaoyanjiConfig{
                 {},
                 {},
         };
-        return null;
+        return data;
     }
 }

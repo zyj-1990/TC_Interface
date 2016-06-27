@@ -16,4 +16,8 @@ public class CommonApi {
         return error_code;
     }
 
+    public static Long get_UnixTime(){
+        return System.currentTimeMillis();
+    }
+
 }
