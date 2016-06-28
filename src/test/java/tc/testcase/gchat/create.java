@@ -49,7 +49,7 @@ public class Create extends ZhaoyanjiConfig{
         paras.add(new Parameter("version",version));
 
 
-        JSONObject res = HttpRequest.sendMultiPartRequest("http://" + host + "gchat/create",paras,null,null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(host , "gchat/create",paras,null,null);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
         System.out.println(res);

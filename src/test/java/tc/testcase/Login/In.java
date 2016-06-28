@@ -42,7 +42,7 @@ public class In extends ZhaoyanjiConfig{
         paras.add(new Parameter("personal_info",personal_info));
         paras.add(new Parameter("user_token",user_token));
 
-        JSONObject res = HttpRequest.sendMultiPartRequest("http://" + host + "/login/in", paras, null,null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(host, "/login/in", paras, null,null);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
         System.out.println(res);

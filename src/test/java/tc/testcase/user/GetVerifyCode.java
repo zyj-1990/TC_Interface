@@ -13,6 +13,7 @@ import tc.utils.HttpRequest;
 import tc.utils.Parameter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhaoyanji on 6/24/16.
@@ -27,7 +28,7 @@ public class GetVerifyCode extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void getVerifyCode(String msg,String mobile,String is_mobile_bind,String version,String code_type,String exp_msg,int exp_code) throws Exception {
-        java.util.List<Parameter> headers = new ArrayList<Parameter>();
+        List<Parameter> headers = new ArrayList<Parameter>();
         headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
         headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
 

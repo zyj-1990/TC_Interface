@@ -11,6 +11,8 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.scheme.Scheme;
@@ -314,7 +316,12 @@ public class HttpRequest {
         }
     }
 
-    public static JSONObject sendMultiPartRequest(String url,List<Parameter> paras,String fileKey,File file) throws Exception {
+    public static JSONObject sendMultiPartRequest(String host,String path,List<Parameter> paras,String fileKey,File file) throws Exception {
+        HttpUriRequest request = null;
+        URIBuilder builder = new URIBuilder();
+        builder.setScheme("http").setHost(host).setPath(path);
+        String url = builder.build().toString();
+
         System.out.println();
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
@@ -418,4 +425,72 @@ public class HttpRequest {
             return resString;
         }
     }
+
+    public static JSONObject sendFormRequest(Http httpRequest, String host, String path) throws Exception {
+        HttpUriRequest request = null;
+        URIBuilder builder = new URIBuilder();
+        builder.setScheme("http").setHost(host).setPath(path);
+        String url = builder.build().toString();
+
+
+
+
+        if (httpRequest.getConnection().equalsIgnoreCase("post")) {
+            logger.info("   [  post  ] " + url);
+            request = new HttpPost(url);
+        } else if (httpRequest.getConnection().equalsIgnoreCase("get")) {
+            logger.info("   [  get   ] " + url);
+            request = new HttpGet(url);
+        } else if (httpRequest.getConnection().equalsIgnoreCase("delete")) {
+            logger.info("   [ delete ] " + url);
+            request = new HttpDelete(url);
+        } else if (httpRequest.getConnection().equalsIgnoreCase("put")) {
+            logger.info("   [  put   ] " + url);
+            request = new HttpPut(url);
+        } else
+            Assert.fail("connection donnot support :" + httpRequest.getConnection());
+        // header builder
+        List<Parameter> headers = httpRequest.getHeaders();
+        if (headers != null) {
+            for (Parameter p : headers) {
+                logger.info("   [ Header ] " + String.format("%1$-20s :     %2$s", p.getName(), p.getValue()));
+                request.addHeader(p.getName(), p.getValue().toString());
+            }
+        }
+
+        List<NameValuePair> paras = httpRequest.getParameters();
+        // entity builder
+        if (paras != null) {
+            UrlEncodedFormEntity uef = new UrlEncodedFormEntity(paras,"utf-8");
+            HttpPost post = (HttpPost) request;
+            post.setEntity(uef);
+        }
+
+        DefaultHttpClient httpClient = new DefaultHttpClient(); //创建默认的httpClient实例
+
+        HttpResponse response = httpClient.execute(request);
+        String resString = "";
+        if (response.getEntity() != null)
+            resString = EntityUtils.toString(response.getEntity(), "UTF-8");
+        // 当没有可返回的JSONObject时，默认打印出Http响应码
+        if (resString.isEmpty()) {
+            int code = response.getStatusLine().getStatusCode();
+            logger.info("INFO: Didn't get HTTP return entity, response code is: " + code);
+            return null;
+        } else {
+            try {
+                JSONObject responseJson = JSONObject.fromObject(resString);
+                logger.info("   [Response] " + responseJson);
+                return responseJson;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                logger.warn("INFO: Http response is NOT JSON format, it is " + resString);
+                return null;
+            }
+
+        }
+
+//        return null;
+    }
+
 }

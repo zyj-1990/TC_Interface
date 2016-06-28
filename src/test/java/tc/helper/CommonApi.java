@@ -1,8 +1,11 @@
 package tc.helper;
 
 import net.sf.json.JSONObject;
+import tc.utils.Parameter;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhaoyanji on 6/19/16.
@@ -49,4 +52,38 @@ public class CommonApi {
         return null;
     }
 
+    public static List<Parameter> setHeaders(String key1,String value1,String key2,String value2){
+        List<Parameter> headers = new ArrayList<Parameter>();
+        headers.add(new Parameter(key1,value1));
+        headers.add(new Parameter(key2,value2));
+        return headers;
+    }
+
+    /**
+     *
+     * @param key
+     * @param value
+     * @param type:如果是Accept,代表动态设置Accept，反之一样
+     * @return
+     */
+    public static List<Parameter> setHeaders(String key,String value,String type){
+        List<Parameter> headers = new ArrayList<Parameter>();
+        if(type == "Accept"){
+            headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
+            headers.add(new Parameter(key, value));
+        }else{
+            headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
+            headers.add(new Parameter(key, value));
+        }
+        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
+        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
+        return headers;
+    }
+
+    public static List<Parameter> setHeaders(){
+        List<Parameter> headers = new ArrayList<Parameter>();
+        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
+        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
+        return headers;
+    }
 }

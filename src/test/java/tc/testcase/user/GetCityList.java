@@ -35,7 +35,7 @@ public class GetCityList extends ZhaoyanjiConfig{
         paras.add(new Parameter("password",password));
         paras.add(new Parameter("version",version));
 
-        Http httpRequest = new Http("post", paras, headers, null);
+        Http httpRequest = new Http("get", paras, headers, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "user/getCityList");
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
