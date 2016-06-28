@@ -52,9 +52,11 @@ public class a {
                 System.out.println("Connection successful!");
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM eetopin.eetopin_verify_code where mobile = '18668462782';");
+                int i = 0;
                 while(rs.next()){
-
-                    System.out.println(rs.getInt(1)+":"+rs.getString("mobile")+","+rs.getString("code"));
+                    i++;
+                    System.out.println(i);
+                    System.out.println(rs.getString("mobile")+","+rs.getString("code"));
                 }
             }
             //关闭数据库连接池

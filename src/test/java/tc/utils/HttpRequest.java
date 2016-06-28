@@ -163,14 +163,18 @@ public class HttpRequest {
 
     public static JSONObject sendRequest(Http httpRequest, String host, String path) throws Exception{
         HttpUriRequest request = null;
+        String totalPath = path;
         URIBuilder builder = new URIBuilder();
 
         List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
-                builder.setParameter(p.getName(), p.getValue().toString());
+//                builder.setParameter(p.getName(), p.getValue().toString());
+                totalPath = totalPath + "/" +p.getName() + "/" + p.getValue();
             }
         }
+        System.out.println(totalPath);
+        builder.setScheme("http").setHost(host).setPath(totalPath);
         String url = builder.build().toString();
 
         if (httpRequest.getConnection().equalsIgnoreCase("post")) {
@@ -237,19 +241,17 @@ public class HttpRequest {
 
     public static JSONObject sendRequest_EntityOrParas(Http httpRequest, String host, String path) throws Exception{
         HttpUriRequest request = null;
-        String totalPath = path;
         URIBuilder builder = new URIBuilder();
+        builder.setScheme("http").setHost(host).setPath(path);
 
         List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
-//                builder.setParameter(p.getName(), p.getValue().toString());
-                totalPath = totalPath + "/" +p.getName() + "/" + p.getValue();
+                builder.setParameter(p.getName(), p.getValue().toString());
             }
         }
-        System.out.println(totalPath);
-        builder.setScheme("http").setHost(host).setPath(totalPath);
         String url = builder.build().toString();
+
 
         if (httpRequest.getConnection().equalsIgnoreCase("post")) {
             logger.info("   [  post  ] " + url);
@@ -352,4 +354,68 @@ public class HttpRequest {
         }
     }
 
+    public static String sendRequest_GetHTML(Http httpRequest, String host, String path) throws Exception{
+        HttpUriRequest request = null;
+        URIBuilder builder = new URIBuilder();
+        builder.setScheme("http").setHost(host).setPath(path);
+        List<Parameter> paras = httpRequest.getParameters();
+        if (paras != null) {
+            for (Parameter p : paras) {
+                builder.setParameter(p.getName(), p.getValue().toString());
+            }
+        }
+        String url = builder.build().toString();
+
+        if (httpRequest.getConnection().equalsIgnoreCase("post")) {
+            logger.info("   [  post  ] " + url);
+            request = new HttpPost(url);
+        } else if (httpRequest.getConnection().equalsIgnoreCase("get")) {
+            logger.info("   [  get   ] " + url);
+            request = new HttpGet(url);
+        } else if (httpRequest.getConnection().equalsIgnoreCase("delete")) {
+            logger.info("   [ delete ] " + url);
+            request = new HttpDelete(url);
+        } else if (httpRequest.getConnection().equalsIgnoreCase("put")) {
+            logger.info("   [  put   ] " + url);
+            request = new HttpPut(url);
+        } else
+            Assert.fail("connection donnot support :" + httpRequest.getConnection());
+        // header builder
+        List<Parameter> headers = httpRequest.getHeaders();
+        if (headers != null) {
+            for (Parameter p : headers) {
+                logger.info("   [ Header ] " + String.format("%1$-20s :     %2$s", p.getName(), p.getValue()));
+                request.addHeader(p.getName(), p.getValue().toString());
+            }
+        }
+        // entity builder
+        List<Entity> entities = httpRequest.getEntity();
+        if (entities != null) {
+            for (Entity e : entities) {
+                StringEntity se = new StringEntity(e.getValue(), "utf-8");
+                if (httpRequest.getConnection().equalsIgnoreCase("post")) {
+                    HttpPost post = (HttpPost) request;
+                    post.setEntity(se);
+                } else if (httpRequest.getConnection().equalsIgnoreCase("put")) {
+                    HttpPut put = (HttpPut) request;
+                    put.setEntity(se);
+                }
+            }
+        }
+        DefaultHttpClient httpClient = new DefaultHttpClient(); //创建默认的httpClient实例
+
+        HttpResponse response = httpClient.execute(request);
+        String resString = "";
+        if (response.getEntity() != null)
+            resString = EntityUtils.toString(response.getEntity(), "UTF-8");
+        // 当没有可返回的JSONObject时，默认打印出Http响应码
+        if (resString.isEmpty()) {
+            int code = response.getStatusLine().getStatusCode();
+            logger.info("INFO: Didn't get HTTP return entity, response code is: " + code);
+            return null;
+        }else{
+            logger.info("   [String: ] " + resString);
+            return resString;
+        }
+    }
 }

@@ -37,7 +37,7 @@ public class GetVerifyCode extends ZhaoyanjiConfig{
         paras.add(new Parameter("version",version));
         paras.add(new Parameter("code_type",code_type));
 
-        Http httpRequest = new Http("post", paras, headers, null);
+        Http httpRequest = new Http("get", paras, headers, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "findPwd/getVerifyCode");
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
@@ -55,7 +55,7 @@ public class GetVerifyCode extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"获取验证码",user_account,"1","100000","3","success",0},
+                {"获取验证码","13516810154","1","100000","3","success",0},
         };
         return data;
     }
