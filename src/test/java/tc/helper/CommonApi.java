@@ -85,7 +85,10 @@ public class CommonApi {
         return headers;
     }
 
-    public static void setParasToSql(){
-
+    public static void setParasToSql(JSONObject obj){
+        //根据传入的JsonObject分解参数
+        //分解的参数是key，value形式
+        //执行sql，传入key，value，先执行select判断是否存在数据库，再决定是update，还是add
+        //上面那步用spring，mybatis来操作，动态拼接数据库sql
     }
 }

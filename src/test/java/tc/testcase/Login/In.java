@@ -47,7 +47,7 @@ public class In extends ZhaoyanjiConfig{
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
         if(err_msg == "success" && err_code == 0){
-            CommonApi.setParasToSql();
+            CommonApi.setParasToSql(res);
         }
     }
 
