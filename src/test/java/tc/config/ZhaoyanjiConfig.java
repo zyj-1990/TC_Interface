@@ -11,9 +11,10 @@ import java.util.List;
 public class ZhaoyanjiConfig extends CommonApi{
     public static List<Parameter> headers = null;
 
-//    public static String user_account = "13516810150";
-    public static String user_account = "18668462782";
+    public static String user_account = "13516810150";
+//    public static String user_account = "18668462782";
     public static String password = "";
+    public static String md5Password = "";
     public static String global_user_id = "";
     public static String user_id = "";
     public static String mobile_uid = "";
@@ -32,7 +33,8 @@ public class ZhaoyanjiConfig extends CommonApi{
 
     static{
         if(user_account == "13516810150"){
-            password = "dc483e80a7a0bd9ef71d8cf973673924";
+            password = "a123456";
+            md5Password = toMD5(password);
             global_user_id = "4739fcb7-0dca-f6a2-fc50-6b286b61e7b6";
             user_id = "180011";
             mobile_uid = "105664";

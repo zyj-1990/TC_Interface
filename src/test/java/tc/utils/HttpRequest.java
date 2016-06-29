@@ -163,7 +163,7 @@ public class HttpRequest {
         }
     }
 
-    public static JSONObject sendRequest(Http httpRequest, String host, String path) throws Exception{
+    public static JSONObject sendRequest(Http httpRequest, String host, String path) throws Exception {
         HttpUriRequest request = null;
         String totalPath = path;
         URIBuilder builder = new URIBuilder();
@@ -172,7 +172,7 @@ public class HttpRequest {
         if (paras != null) {
             for (Parameter p : paras) {
 //                builder.setParameter(p.getName(), p.getValue().toString());
-                totalPath = totalPath + "/" +p.getName() + "/" + p.getValue();
+                totalPath = totalPath + "/" + p.getName() + "/" + p.getValue();
             }
         }
         System.out.println(totalPath);
@@ -241,7 +241,7 @@ public class HttpRequest {
     }
 
 
-    public static JSONObject sendRequest_EntityOrParas(Http httpRequest, String host, String path) throws Exception{
+    public static JSONObject sendRequest_EntityOrParas(Http httpRequest, String host, String path) throws Exception {
         HttpUriRequest request = null;
         URIBuilder builder = new URIBuilder();
         builder.setScheme("http").setHost(host).setPath(path);
@@ -316,8 +316,7 @@ public class HttpRequest {
         }
     }
 
-    public static JSONObject sendMultiPartRequest(String host,String path,List<Parameter> paras,String fileKey,File file) throws Exception {
-        HttpUriRequest request = null;
+    public static JSONObject sendMultiPartRequest(Http httpRequest, String host, String path, String fileKey, File file) throws Exception {
         URIBuilder builder = new URIBuilder();
         builder.setScheme("http").setHost(host).setPath(path);
         String url = builder.build().toString();
@@ -326,14 +325,25 @@ public class HttpRequest {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
 
-        MultipartEntity entity = new MultipartEntity();
+        // header builder
+        List<Parameter> headers = httpRequest.getHeaders();
+        if (headers != null) {
+            for (Parameter p : headers) {
+                System.out.println("   [ Header ] " + String.format("%1$-20s :     %2$s", p.getName(), p.getValue()));
+                post.addHeader(p.getName(), p.getValue().toString());
+            }
+        }
 
+        MultipartEntity entity = new MultipartEntity();
+        List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
                 entity.addPart(p.getName(), new StringBody(p.getValue().toString()));
             }
         }
-        if(fileKey != null && file != null){
+
+
+        if (fileKey != null && file != null) {
             FileBody fb = new FileBody(file);
             entity.addPart(fileKey, fb);
         }
@@ -361,7 +371,7 @@ public class HttpRequest {
         }
     }
 
-    public static String sendRequest_GetHTML(Http httpRequest, String host, String path) throws Exception{
+    public static String sendRequest_GetHTML(Http httpRequest, String host, String path) throws Exception {
         HttpUriRequest request = null;
         URIBuilder builder = new URIBuilder();
         builder.setScheme("http").setHost(host).setPath(path);
@@ -420,7 +430,7 @@ public class HttpRequest {
             int code = response.getStatusLine().getStatusCode();
             logger.info("INFO: Didn't get HTTP return entity, response code is: " + code);
             return null;
-        }else{
+        } else {
             logger.info("   [String: ] " + resString);
             return resString;
         }
@@ -431,8 +441,6 @@ public class HttpRequest {
         URIBuilder builder = new URIBuilder();
         builder.setScheme("http").setHost(host).setPath(path);
         String url = builder.build().toString();
-
-
 
 
         if (httpRequest.getConnection().equalsIgnoreCase("post")) {
@@ -461,7 +469,7 @@ public class HttpRequest {
         List<NameValuePair> paras = httpRequest.getParameters();
         // entity builder
         if (paras != null) {
-            UrlEncodedFormEntity uef = new UrlEncodedFormEntity(paras,"utf-8");
+            UrlEncodedFormEntity uef = new UrlEncodedFormEntity(paras, "utf-8");
             HttpPost post = (HttpPost) request;
             post.setEntity(uef);
         }

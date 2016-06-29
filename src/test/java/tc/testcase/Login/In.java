@@ -20,6 +20,7 @@ import java.util.Map;
 
 /**
  * Created by zhaoyanji on 2016/6/27.
+ * 登陆获取信息
  */
 public class In extends ZhaoyanjiConfig{
     @BeforeClass
@@ -29,10 +30,6 @@ public class In extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void in(String msg,String user_account,String password,String version,String client_type,String sys_type,String personal_info,String user_token,String expMsg,int expCode) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "multipart/form-data; boundary=Boundary+6EBBDD6EA85A4457"));
-
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
@@ -42,12 +39,16 @@ public class In extends ZhaoyanjiConfig{
         paras.add(new Parameter("personal_info",personal_info));
         paras.add(new Parameter("user_token",user_token));
 
-        JSONObject res = HttpRequest.sendMultiPartRequest(host, "/login/in", paras, null,null);
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host, "/login/in", null,null);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
         System.out.println(res);
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
+        if(err_msg == "success" && err_code == 0){
+            CommonApi.setParasToSql();
+        }
     }
 
     @AfterClass
@@ -59,10 +60,29 @@ public class In extends ZhaoyanjiConfig{
     public static Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                //TODO 接口测试用例还未写完整
-//                {"关闭特色列表接口-账号为空","","dc483e80a7a0bd9ef71d8cf973673924","100000",mobile_uid,"success",0},
-                {"登陆获取信息接口",user_account,"a123456","100000","per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","success",0},
-//                {"关闭特色列表接口-账号或者密码错误","18668462782","dc483e80a7a0bd9ef71d8cf973673112924","100000",mobile_uid,"success",0},
+                {"登陆获取信息接口",user_account,password,version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","success",0},
+                {"登陆获取信息接口-账号不存在","13516810157",password,version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-账号为空","",password,version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号不能为空",1002},
+                {"登陆获取信息接口-账号格式错误","1351681015",password,version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-密码为空",user_account,"",version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","密码不能为空",1002},
+                {"登陆获取信息接口-密码错误",user_account,"a123456789",version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-密码为特殊字符",user_account,"！@#￥%……&*",version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-密码长度超过16位",user_account,"a123456a123456789",version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-密码短于6位",user_account,password,version,"per","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                //TODO 所有报错，都是提示账号\密码有误，请检查后重新输入
+                {"登陆获取信息接口-clientType为空",user_account,password,version,"","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-clientType内容不合要求",user_account,password,version,"perxxx","2","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-sys_type为空",user_account,password,version,"perxxx","","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-sys_type非数字",user_account,password,version,"perxxx","upup","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-sys_type数字不合法",user_account,password,version,"perxxx","99","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-sys_type数字为1",user_account,password,version,"perxxx","1","1","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-personal_info为空",user_account,password,version,"perxxx","1","","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-personal_info非数字",user_account,password,version,"perxxx","1","upoup","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-personal_info数字不合法",user_account,password,version,"perxxx","1","999","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-personal_info数字为2",user_account,password,version,"perxxx","1","2","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-personal_info数字为0",user_account,password,version,"perxxx","1","0","4245fc927e51bf813d4c077315a73de8094db29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-user_token值为空",user_account,password,version,"perxxx","1","0","","账号\\密码有误，请检查后重新输入",1003},
+                {"登陆获取信息接口-user_token值为非法",user_account,password,version,"perxxx","1","0","4245fc927e51bf813d4c077315a73de8094dfsdfsfsb29f1a56122236dedb9b707530ef","账号\\密码有误，请检查后重新输入",1003},
         };
         return data;
     }

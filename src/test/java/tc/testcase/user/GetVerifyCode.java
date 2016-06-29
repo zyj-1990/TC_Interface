@@ -27,12 +27,14 @@ public class GetVerifyCode extends ZhaoyanjiConfig{
     }
 
     @Test(dataProvider = "data")
-    public void getVerifyCode(String msg,String mobile,String is_mobile_bind,String version,String code_type,String exp_msg,int exp_code) throws Exception {
+    public void getVerifyCode(String msg,String user_account,String password,String mobile,String is_mobile_bind,String version,String code_type,String exp_msg,int exp_code) throws Exception {
         List<Parameter> headers = new ArrayList<Parameter>();
         headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
         headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
 
         java.util.List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
         paras.add(new Parameter("mobile",mobile));
         paras.add(new Parameter("is_mobile_bind",is_mobile_bind));
         paras.add(new Parameter("version",version));
@@ -56,7 +58,7 @@ public class GetVerifyCode extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"获取验证码","13516810154","1","100000","3","success",0},
+                {"获取验证码",user_account,password,"13516810155","1","100000","3","success",0},
         };
         return data;
     }

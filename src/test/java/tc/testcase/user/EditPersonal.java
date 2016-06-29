@@ -28,28 +28,32 @@ public class EditPersonal extends ZhaoyanjiConfig{
     }
 
     @Test(dataProvider = "data")
-    public void editPersonal(String msg,String id,String user_name,String nickname,Integer sex,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
-
-        Map m = new HashMap();
-        m.put("id",id);
+    public void editPersonal(String msg,String id,String birthday,String address,String user_name,String nickname,Integer sex,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("id",id));
+        if(birthday != null){
+            paras.add(new Parameter("birthday",birthday));
+        }
+        if(address != null){
+            paras.add(new Parameter("address",address));
+        }
         if(user_name != null){
-            m.put("user_name",user_name);
+            paras.add(new Parameter("user_name",user_name));
         }
         if(nickname != null){
-            m.put("nickname",nickname);
+            paras.add(new Parameter("nickname",nickname));
         }
         if(sex != null){
-            m.put("sex",sex);
+            paras.add(new Parameter("sex",sex));
         }
-        m.put("user_account",user_account);
-        m.put("password",password);
-        m.put("version",version);
-        String data = JSONObject.fromObject(m).toString();
-        List<Entity> entities = new ArrayList<Entity>();
-        entities.add(new Entity(data));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
 
-        Http httpRequest = new Http("post", null, headers, entities);
-        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "user/editPersonal");
+        System.out.println(paras);
+
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/editPersonal",null,null);
 
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
@@ -67,7 +71,7 @@ public class EditPersonal extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"编辑用户名字","236607","hha",null,null,user_account,password,"100000","success",0},
+                {"编辑用户名字",mobile_uid,"2016-06-20","","hha","1",2,user_account,password,"100000","success",0},
         };
         return data;
     }

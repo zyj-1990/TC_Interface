@@ -16,23 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhaoyanji on 6/24/16.
- * 重新绑定后
+ * Created by zhaoyanji on 2016/6/29.
+ * 首页关注医院
  */
-public class UpdateBindMob extends ZhaoyanjiConfig{
+public class AttEnt extends ZhaoyanjiConfig{
     @BeforeClass
     public void beforeClass() {
     }
 
     @Test(dataProvider = "data")
-    public void updateBindMob(String msg,String global_user_id,String user_id,String mobile,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
-        String verify_code = "";
-
+    public void attEnt(String msg,String ent_id,String id,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
         List<Parameter> paras = new ArrayList<Parameter>();
-        paras.add(new Parameter("global_user_id",global_user_id));
-        paras.add(new Parameter("user_id",user_id));
-        paras.add(new Parameter("mobile",mobile));
-        paras.add(new Parameter("verify_code",verify_code));
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("id",id));
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
         paras.add(new Parameter("version",version));
@@ -40,7 +36,7 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
         System.out.println(paras);
 
         Http httpRequest = new Http("post", paras, null, null);
-        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/updateBindMob",null,null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/attEnt",null,null);
 
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
@@ -58,7 +54,7 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"编辑用户名字",global_user_id,mobile_uid,mobile,user_account,password,"100000","success",0},
+                {"编辑用户名字","73362","105664",user_account,password,"100000","success",0},
         };
         return data;
     }

@@ -75,8 +75,6 @@ public class CommonApi {
             headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
             headers.add(new Parameter(key, value));
         }
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
         return headers;
     }
 
@@ -85,5 +83,9 @@ public class CommonApi {
         headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
         headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
         return headers;
+    }
+
+    public static void setParasToSql(){
+
     }
 }
