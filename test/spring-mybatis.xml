@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="mybatis-config.xml" />
+
+        <!-- mapper和resultmap配置路径 -->
+        <property name="mapperLocations">
+            <list>
+                <!--表示在com.netease.numen.pizza.mapper包下所有目录中，以.xml结尾所有文件-->
+                <value>classpath*:com/netease/numen/pizza/mapper/*.xml</value>
+            </list>
+        </property>
+    </bean>	<!-- 通过扫描的模式，扫描目录在com/netease/numen/mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+        <constructor-arg index="1" value="SIMPLE" />
+    </bean>
+
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.netease.numen.pizza.mapper" />
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+    </bean>
+
+</beans>

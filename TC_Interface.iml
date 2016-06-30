@@ -12,10 +12,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="json应用jar包" level="project" />
-<<<<<<< HEAD
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.9.2" level="project" />
-=======
     <orderEntry type="library" name="testng-6.8.8" level="project" />
->>>>>>> origin/master
   </component>
 </module>
