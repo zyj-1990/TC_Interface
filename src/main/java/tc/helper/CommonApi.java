@@ -144,7 +144,7 @@ public class CommonApi {
         }
         System.out.println(ent_info.size());
 
-        //执行sql，传入key，value，先执行select判断是否存在数据库，再决定是update，还是add
+        //执行sql，传入初始查询条件，先执行select判断是否存在数据库，再决定是update，还是add
         //上面那步用spring，mybatis来操作，动态拼接数据库sql
     }
 
