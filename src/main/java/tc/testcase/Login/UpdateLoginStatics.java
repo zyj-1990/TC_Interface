@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
+ * 统计登陆数据-配合商家版的要求添的接口
  * Created by zhaoyanji on 2016/6/27.
  */
 public class UpdateLoginStatics extends ZhaoyanjiConfig{
@@ -56,7 +57,18 @@ public class UpdateLoginStatics extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"更新登录数据","13516810150","dc483e80a7a0bd9ef71d8cf973673924","100000",user_id,"success",0},
+                //TODO 没有做字段值错误判断？那怎么知道谁是谁？
+                {"统计登陆数据",user_account,password,version,user_id,"success",0},
+                {"统计登陆数据-账号为空","",password,version,user_id,"success",0},
+                {"统计登陆数据-账号不存在","1351681015",password,version,user_id,"success",0},
+                {"统计登陆数据-账号非手机号(格式错误)","!@#$%^&*()WSDEFGHH",password,version,user_id,"success",0},
+                {"统计登陆数据-密码为空",user_account,"",version,user_id,"success",0},
+                {"统计登陆数据-密码小于6位",user_account,"admin",version,user_id,"success",0},
+                {"统计登陆数据-密码大于16位",user_account,"admin1234567890",version,user_id,"success",0},
+                {"统计登陆数据-密码错误",user_account,"admin1234567890",version,user_id,"success",0},
+                {"统计登陆数据-密码输入特殊字符",user_account,"!@#$%^&*()_+_~~",version,user_id,"success",0},
+                {"统计登陆数据-user_id输入为空",user_account,password,version,"","success",0},
+                {"统计登陆数据-user_id输入错误",user_account,password,version,"jfsdjkfskfkkdjks","success",0},
         };
         return data;
     }

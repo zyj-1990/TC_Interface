@@ -31,6 +31,10 @@ public class ZhaoyanjiConfig extends CommonApi{
     public static String common_path = "";
     public static int port = 0;
 
+
+    //数据库的表名
+    public static String loginTable = "eetopin.eetopin_IT_login";
+
     static{
         if(user_account == "13516810150"){
             password = "a123456";

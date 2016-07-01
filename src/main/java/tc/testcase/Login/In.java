@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
+import tc.helper.SqlApi;
 import tc.utils.Entity;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
@@ -30,6 +31,10 @@ public class In extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void in(String msg,String user_account,String password,String version,String client_type,String sys_type,String personal_info,String user_token,String expMsg,int expCode) throws Exception {
+        List<Parameter> conditions = new ArrayList<Parameter>();
+        CommonApi.addConditions(conditions,loginTable,"id");
+        CommonApi.addConditions(conditions,loginTable,"ent_id");
+
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
@@ -50,7 +55,7 @@ public class In extends ZhaoyanjiConfig{
         System.out.println(err_code);
         if(err_msg.equals("success") && err_code == 0){
             System.out.println("get in");
-            CommonApi.setParasToSql(res);
+            CommonApi.setParasToSql(res,"eetopin.eetopin_IT_login","id,ent_id",conditions);
         }
     }
 

@@ -2,6 +2,7 @@ package tc.helper;
 
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
+import com.mysql.fabric.xmlrpc.base.Param;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.jsoup.helper.StringUtil;
@@ -12,9 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by zhaoyanji on 6/19/16.
@@ -94,60 +93,79 @@ public class CommonApi {
         return headers;
     }
 
-    public static void setParasToSql(JSONObject obj){
+    public static void setParasToSql(JSONObject obj,String tablename,String key,List<Parameter> conditions){
         //根据传入的JsonObject分解参数
         JSONArray jsonArr = obj.getJSONArray("bizobj");
         //用户数据获取
         JSONObject user_info = jsonArr.getJSONObject(0);
-        System.out.println("user_info" +user_info);
         //用户加入企业，获取所加企业相关字段信息
         JSONArray ent_info = jsonArr.getJSONArray(1);
-        System.out.println("ent_info" + ent_info);
-
-        String id = user_info.getString("id");
-        System.out.println("id" + id);
-
+        //要传入几个key，作为判断的记录是否存在的条件
         //分解的参数是key，value形式
-        Iterator it = user_info.keys();
-        while (it.hasNext()){
-            String key = it.next().toString();
-            String value = user_info.getString(key);
-            if(!value.isEmpty()){
-                System.out.println(key);
-                System.out.println(value);
+        Map userMap = setValuesToMap(user_info);
 
-                //
-            }
-        }
+
         //如果一个人属于多企业，那么就创建多条数据库记录存储，所有字段全部存一遍,用用户的id作为唯一标识
         for(int i= 0; i < ent_info.size(); i++){
-            Iterator it1 = user_info.keys();
-            while(it1.hasNext()){
-                String key = it1.next().toString();
-                String value = user_info.getString(key);
-                if(!value.isEmpty()){
-                    System.out.println(key);
-                    System.out.println(value);
-                    //不为空的值写入sql
-                }
-            }
-            Iterator it2 = ent_info.getJSONObject(i).keys();
-            while(it2.hasNext()){
-                String key = it2.next().toString();
-                String value = ent_info.getJSONObject(i).getString(key);
-                if(!value.isEmpty()){
-                    System.out.println(key);
-                    System.out.println(value);
-                    //不为空的值写入sql
-                }
-            }
+            userMap = setValuesToMap(userMap,ent_info.getJSONObject(i));
+
         }
-        System.out.println(ent_info.size());
 
         //执行sql，传入初始查询条件，先执行select判断是否存在数据库，再决定是update，还是add
+        if(SqlApi.isRecordInSql(tablename,key,conditions)){
+            SqlApi.sql_update(tablename,userMap,conditions);
+        }else{
+            SqlApi.sql_insert(tablename,userMap);
+        }
         //上面那步用spring，mybatis来操作，动态拼接数据库sql
     }
 
+    public static Map<String,String> setValuesToMap(JSONObject jsonObject){
+        Map<String,String> temp = new HashMap<String, String>();
+        Iterator it = jsonObject.keys();
+        while (it.hasNext()) {
+            String key = it.next().toString();
+            String value = jsonObject.getString(key);
+            if (!value.isEmpty()) {
+                temp.put(key,value);
+            }
+        }
+        return temp;
+    }
 
+    public static Map<String,String> setValuesToMap(Map map,JSONObject jsonObject){
+        Map<String,String> temp = new HashMap<String, String>();
+        Iterator it = jsonObject.keys();
+        while (it.hasNext()) {
+            String key = it.next().toString();
+            String value = jsonObject.getString(key);
+            if (!value.isEmpty()) {
+                temp.put(key,value);
+            }
+        }
+        map.putAll(temp);
+        return map;
+    }
 
+    /**
+     * 判断值是否为空，不为空就放进List中
+     * @param conditions
+     * @param tablename
+     * @param key
+     * @return
+     */
+    public static List<Parameter> addConditions( List<Parameter> conditions,String tablename,String key){
+        try{
+            ResultSet result = SqlApi.sql_select(tablename,key);
+            boolean bo = result.next();
+            String temp =  bo? result.getString(key):null;
+            if(temp != null){
+                conditions.add(new Parameter(key,temp));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return conditions;
+    }
 }
