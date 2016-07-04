@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 获取用户所有群组
  * Created by zhaoyanji on 2016/6/23.
- * 获取所有的群组动态列表数据
  */
 public class GetUserGroup extends ZhaoyanjiConfig{
     @BeforeClass

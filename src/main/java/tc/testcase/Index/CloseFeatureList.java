@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 临时关闭功能列表
  * Created by zhaoyanji on 6/21/16.
  */
 public class CloseFeatureList extends ZhaoyanjiConfig{
@@ -28,7 +29,7 @@ public class CloseFeatureList extends ZhaoyanjiConfig{
     }
 
     @Test(dataProvider = "data")
-    public void quit(String msg,String user_account,String version,String expMsg,int expCode) throws Exception {
+    public void closeFeatureList(String msg,String user_account,String version,String expMsg,int expCode) throws Exception {
         List<Parameter> headers = new ArrayList<Parameter>();
         headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
         headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
@@ -59,7 +60,12 @@ public class CloseFeatureList extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"不知道啥用","13516810155","100000","success",0},
+                //TODO　接口文档显示什么都不传，实际传的参数都是没用的，返回的全是正确
+                {"临时关闭功能列表",user_account,version,"success",0},
+                {"临时关闭功能列表-手机号码为空","",version,"success",0},
+                {"临时关闭功能列表-手机号码不存在","13516810199",version,"success",0},
+                {"临时关闭功能列表-手机号码格式不对","135168101",version,"success",0},
+                {"临时关闭功能列表-手机号码内容非数字","ASDFGHJKLIO",version,"success",0},
         };
         return data;
     }

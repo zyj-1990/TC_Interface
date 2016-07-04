@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 解散群组
  * Created by zhaoyanji on 2016/6/23.
  *
  */
@@ -47,7 +48,7 @@ public class GroupDismiss extends ZhaoyanjiConfig{
         List<Entity> entities = new ArrayList<Entity>();
         entities.add(new Entity(data));
 
-        Http httpRequest = new Http("get", null, headers, entities);
+        Http httpRequest = new Http("post", null, null, entities);
         JSONObject res = HttpRequest.sendRequest(httpRequest, host, "gchat/groupDismiss");
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);

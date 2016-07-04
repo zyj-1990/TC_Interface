@@ -13,12 +13,13 @@ import tc.utils.HttpRequest;
 import tc.utils.Parameter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhaoyanji on 2016/6/24.
  * 获取通讯录下所有的对应员工的详细数据
  */
-public class List extends ZhaoyanjiConfig{
+public class Lists extends ZhaoyanjiConfig{
     @BeforeClass
     public void beforeClass() {
 
@@ -26,11 +27,8 @@ public class List extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void list(String msg,String user_account,String password,String version,String ent_id,String user_id,String page,String pagesize,String exp_msg,int exp_code) throws Exception {
-        java.util.List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
 
-        java.util.List<Parameter> paras = new ArrayList<Parameter>();
+        List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
         paras.add(new Parameter("version",version));

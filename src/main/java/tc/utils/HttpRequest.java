@@ -360,6 +360,7 @@ public class HttpRequest {
             return null;
         } else {
             try {
+                System.out.println(resString);
                 JSONObject responseJson = JSONObject.fromObject(resString);
                 logger.info("   [Response] " + responseJson);
                 return responseJson;

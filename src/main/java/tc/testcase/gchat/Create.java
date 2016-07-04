@@ -19,20 +19,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 创建叽歪群
  * Created by zhaoyanji on 2016/6/23.
  */
 public class Create extends ZhaoyanjiConfig{
-
+    //生成一个g_id
+    static Long g_id = CommonApi.get_UnixTime();
     @BeforeClass
     public void beforeClass() {
-
+        CommonApi.getCommonValueFromSql();
     }
 
     @Test(dataProvider = "data")
-    public void create(String msg,String nick_name,String ent_id,String user_account,String g_type,String is_open,String global_user_id,String g_id,String user_id,String password,String is_ent,String intro,String version,String exp_msg,int exp_code) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "x-www-form-urlencoded"));
-        headers.add(new Parameter("Content-Type", "multipart/form-data; boundary=Boundary+88BFDEA6704849E0"));
+    public void create(String msg,String nick_name,String ent_id,String user_account,String g_type,String is_open,String global_user_id,String user_id,String password,String is_ent,String intro,String version,String exp_msg,int exp_code) throws Exception {
 
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("nick_name",nick_name));
@@ -66,7 +65,7 @@ public class Create extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"正常创建群聊","空","72720","13516810150","1","1","4739fcb7-0dca-f6a2-fc50-6b286b61e7b6","1466584697899","180011","dc483e80a7a0bd9ef71d8cf973673924","1","啦啦啦","100000","success",0,},
+                {"创建叽歪群","空",ent_id,user_account,"1","1",global_user_id,user_id,toMD5(password),"1","啦啦啦",version,"success",0,},
         };
         return data;
     }

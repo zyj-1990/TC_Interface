@@ -29,7 +29,7 @@ public class UpdatePwd extends ZhaoyanjiConfig  {
 
 //    @Test(dataProvider = "data")
 //    public void updatePwd(String msg,String user_account,String global_user_id,String ori_pwd,String password,String confirm_pwd,String new_pwd,String version,String exp_msg,int exp_code) throws Exception {
-//        List<Parameter> paras = new ArrayList<Parameter>();
+//        Lists<Parameter> paras = new ArrayList<Parameter>();
 //        paras.add(new Parameter("user_account",user_account));
 //        paras.add(new Parameter("ori_pwd",ori_pwd));
 //        paras.add(new Parameter("global_user_id",global_user_id));

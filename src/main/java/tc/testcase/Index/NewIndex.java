@@ -1,5 +1,6 @@
 package tc.testcase.Index;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -24,14 +25,12 @@ import java.util.Map;
 public class NewIndex extends ZhaoyanjiConfig{
     @BeforeClass
     public void beforeClass() {
-
+        CommonApi.getCommonValueFromSql();
     }
 
     @Test(dataProvider = "data")
     public void newIndex(String msg,String user_account,String password,String version,String mobile_uid,String expMsg,int expCode) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
+        List<Parameter> conditions = new ArrayList<Parameter>();
 
         Map m = new HashMap();
         m.put("user_account",user_account);
@@ -49,6 +48,12 @@ public class NewIndex extends ZhaoyanjiConfig{
         System.out.println(res);
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
+        Map key = new HashMap();
+        key.put("ent_id",null);
+        if(msg == "首页医院信息查询"){
+            JSONArray jsonArr = res.getJSONObject("bizobj").getJSONArray("ent_list");
+            CommonApi.setJsonArrToSql(jsonArr,"eetopin.eetopin_IT_hospital",key,conditions);
+        }
     }
 
     @AfterClass
@@ -60,10 +65,17 @@ public class NewIndex extends ZhaoyanjiConfig{
     public static Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                //TODO 接口测试用例还未写完整
-                {"关闭特色列表接口-账号为空","","dc483e80a7a0bd9ef71d8cf973673924","100000",mobile_uid,"success",0},
-                {"关闭特色列表接口-账号不存在","18668462783","dc483e80a7a0bd9ef71d8cf973673924","100000",mobile_uid,"success",0},
-                {"关闭特色列表接口-账号或者密码错误","18668462782","dc483e80a7a0bd9ef71d8cf973673112924","100000",mobile_uid,"success",0},
+                //TODO 不管输入什么，输出都是正确，接口没做判断
+                {"首页医院信息查询",user_account,password,version,mobile_uid,"success",0},
+//                {"首页医院信息查询－手机号码为空","",password,version,mobile_uid,"success",0},
+//                {"首页医院信息查询－手机号码格式不对","1866846278356",password,version,mobile_uid,"success",0},
+//                {"首页医院信息查询－手机号码内容不对","!@#$%^&*()_",password,version,mobile_uid,"success",0},
+//                {"首页医院信息查询－手机号码不存在","18668462799",password,version,mobile_uid,"success",0},
+//                {"首页医院信息查询-密码为空",user_account,"",version,mobile_uid,"success",0},
+//                {"首页医院信息查询-密码错误",user_account,"dc483e80a7a0bd9ef71d8cf9736739245656",version,mobile_uid,"success",0},
+//                {"首页医院信息查询-mobile_uid为空",user_account,password,version,"","success",0},
+//                {"首页医院信息查询-mobile_uid不存在",user_account,password,version,"1056666","success",0},
+//                {"首页医院信息查询-mobile_uid为非数字",user_account,password,version,"@#$%^&*(","success",0},
         };
         return data;
     }

@@ -2,7 +2,6 @@ package tc.helper;
 
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
-import org.omg.CORBA.Object;
 import tc.utils.Parameter;
 
 import javax.swing.text.html.HTMLDocument;
@@ -14,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.lang.Object;
 
 /**
  * Created by zhaoyanji on 2016/6/30.
@@ -75,8 +75,8 @@ public class SqlApi {
      * @param map
      */
     public static void sql_insert(String tableName, Map<String,String> map){
-        String keysString = getInsertSql(tableName,map,"key");
-        String valuesString = getInsertSql(tableName,map,"value");
+        String keysString = getInsertSql(map,"key");
+        String valuesString = getInsertSql(map,"value");
         //设置数据库连接池
         try {
             //设置连接池配置信息
@@ -85,12 +85,12 @@ public class SqlApi {
             connection = connectionPool.getConnection(); // fetch a connection
             if (connection != null){
                 System.out.println("Connection successful!");
-                for (Map.Entry<String,String> entry : map.entrySet()) {
-                    Statement stmt = connection.createStatement();
-                    int rs = stmt.executeUpdate(" INSERT INTO " + tableName + " "+ keysString + "  values  " + valuesString + "");
-//                    if(rs != null){
-//                    }
-                }
+                Statement stmt = connection.createStatement();
+                System.out.println("keysString" + keysString);
+                System.out.println("valuesString" + valuesString);
+                int rs = stmt.executeUpdate(" INSERT INTO " + tableName + ""+ keysString + "  values  " + valuesString + "");
+//              if(rs != null){
+//              }
             }
             //关闭数据库连接池
             connectionPool.shutdown();
@@ -147,6 +147,40 @@ public class SqlApi {
             }
         }
     }
+//      TODO 代码应该无用
+    public static void sql_update(String tableName, Map<String,String> map){
+        //设置数据库连接池
+        try {
+            //设置连接池配置信息
+            connectionPool = new BoneCP(config);
+            //从数据库连接池获取一个数据库连接
+            connection = connectionPool.getConnection(); // fetch a connection
+            if (connection != null){
+                System.out.println("Connection successful!");
+                for (Map.Entry<String,String> entry : map.entrySet()) {
+                    Statement stmt = connection.createStatement();
+                    int rs = stmt.executeUpdate(" UPDATE " + tableName + " SET " + entry.getKey() + " = " + "\'" +  entry.getValue() + "\'" + "");
+//                    if(rs != null){
+//                    }
+                }
+
+            }
+            //关闭数据库连接池
+            connectionPool.shutdown();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 
     /**
      * 查询数据库
@@ -221,14 +255,28 @@ public class SqlApi {
     }
 
     /**
+     *
+     */
+    public static String sql_select_data(String tableName,String key,List<Parameter> cdn)throws Exception{
+        ResultSet rs = sql_select(tableName,key,cdn);
+        rs.next();
+        return rs.getString(key);
+    }
+
+    /**
      * 判断要查询的纪录是否在数据库中
      * @param tableName
-     * @param key
+     * @param map
      * @param cdn
      * @return
      */
-    public static boolean isRecordInSql(String tableName,String key,List<Parameter> cdn){
+    public static boolean isRecordInSql(String tableName,Map<String,Object> map,List<Parameter> cdn){
         ResultSet result = null;
+        String key = "";
+        for(Object set : map.keySet()){
+            key = key + set.toString() + ",";
+        }
+        key = key.substring(0,key.length()-1);
         try {
             if(cdn.size() > 0){
                 result= sql_select(tableName,key,cdn);
@@ -266,7 +314,7 @@ public class SqlApi {
      * @param type
      * @return
      */
-    public static String getInsertSql(String tablename,Map<String,String> map, String type){
+    public static String getInsertSql(Map<String,String> map, String type){
         String temp = "";
 
         if(type.equals("key")){
@@ -290,24 +338,5 @@ public class SqlApi {
         }else{
             return null;
         }
-    }
-
-    /**
-     * 获取主键
-     * @param tablename
-     * @param key
-     * @return
-     */
-    public static int getPriKey(String tablename,String key){
-
-        int num = 0;
-        try {
-            ResultSet rs = sql_select(tablename,key);
-            rs.next();
-            num = Integer.parseInt(rs.getString("no"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return num;
     }
 }

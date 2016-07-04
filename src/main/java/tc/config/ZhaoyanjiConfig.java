@@ -1,8 +1,11 @@
 package tc.config;
 
 import tc.helper.CommonApi;
+import tc.helper.CommonOperation;
+import tc.helper.SqlApi;
 import tc.utils.Parameter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +24,10 @@ public class ZhaoyanjiConfig extends CommonApi{
     public static String version = "100000";
     public static String name = "";
     public static String mobile = "";
+    public static String nick_name = "";
     public static String wecha_id = "";
+    //
+    public static String ent_id = "";
 
 
     //通用url相关配置
@@ -36,23 +42,23 @@ public class ZhaoyanjiConfig extends CommonApi{
     public static String loginTable = "eetopin.eetopin_IT_login";
 
     static{
-        if(user_account == "13516810150"){
-            password = "a123456";
-            md5Password = toMD5(password);
-            global_user_id = "4739fcb7-0dca-f6a2-fc50-6b286b61e7b6";
-            user_id = "180011";
-            mobile_uid = "105664";
-            name = "帅比名";
-            mobile = "13516810150";
-            wecha_id = "";
-            host = "mobileapi.eetopintest.com/";
-        }else if(user_account == "18668462782"){
-            password = "a123456";
-            md5Password = toMD5(password);
-            global_user_id = "2f999599-e39f-9d61-e03e-b81ba834b8bd";
-            wecha_id = "";
-            host = "mobileapi.eetop.com/";
+        try {
+            if(user_account == "13516810150"){
+                password = "a123456";
+                md5Password = toMD5(password);
+//                wecha_id = "";
+                host = "mobileapi.eetopintest.com/";
+            }else if(user_account == "18668462782"){
+                password = "a123456";
+                md5Password = toMD5(password);
+//                wecha_id = "";
+                host = "mobileapi.eetop.com/";
+            }
+            CommonApi.getCommonValueFromSql();
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
 
         headers = setHeaders();
     }

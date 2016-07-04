@@ -6,6 +6,7 @@ import com.mysql.fabric.xmlrpc.base.Param;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.jsoup.helper.StringUtil;
+import tc.config.ZhaoyanjiConfig;
 import tc.utils.Parameter;
 
 import java.security.MessageDigest;
@@ -93,33 +94,65 @@ public class CommonApi {
         return headers;
     }
 
-    public static void setParasToSql(JSONObject obj,String tablename,String key,List<Parameter> conditions){
-        //根据传入的JsonObject分解参数
-        JSONArray jsonArr = obj.getJSONArray("bizobj");
-        //用户数据获取
-        JSONObject user_info = jsonArr.getJSONObject(0);
-        //用户加入企业，获取所加企业相关字段信息
-        JSONArray ent_info = jsonArr.getJSONArray(1);
-        //要传入几个key，作为判断的记录是否存在的条件
-        //分解的参数是key，value形式
-        Map userMap = setValuesToMap(user_info);
-
-
-        //如果一个人属于多企业，那么就创建多条数据库记录存储，所有字段全部存一遍,用用户的id作为唯一标识
-        for(int i= 0; i < ent_info.size(); i++){
-            userMap = setValuesToMap(userMap,ent_info.getJSONObject(i));
-
-        }
-
-        //执行sql，传入初始查询条件，先执行select判断是否存在数据库，再决定是update，还是add
+    public static void setJsonObjectToSql(JSONObject obj,String tablename,Map key,List<Parameter> conditions){
+        Map userMap = setValuesToMap(obj);
+        resetConditions(key,userMap,conditions);
         if(SqlApi.isRecordInSql(tablename,key,conditions)){
-            SqlApi.sql_update(tablename,userMap,conditions);
+            if(conditions.size() > 0){
+                SqlApi.sql_update(tablename,userMap,conditions);
+            }else{
+                SqlApi.sql_update(tablename,userMap);
+            }
         }else{
             SqlApi.sql_insert(tablename,userMap);
         }
-        //上面那步用spring，mybatis来操作，动态拼接数据库sql
     }
 
+    public static void setJsonArrToSql(JSONArray jsonArr,String tablename,Map key,List<Parameter> conditions){
+
+        for(int i= 0; i < jsonArr.size(); i++){
+            Map userMap = new HashMap();
+            userMap = setValuesToMap(userMap,jsonArr.getJSONObject(i));
+            //清空条件，分割key的，设置条件的值为map中的值，也就是接口返回的参数
+            resetConditions(key,userMap,conditions);
+            if(SqlApi.isRecordInSql(tablename,key,conditions)){
+                if(conditions.size() > 0){
+                    SqlApi.sql_update(tablename,userMap,conditions);
+                }else{
+                    SqlApi.sql_update(tablename,userMap);
+                }
+            }else{
+                SqlApi.sql_insert(tablename,userMap);
+            }
+        }
+    }
+
+//    public static void setParasToSql(JSONObject obj,String tablename,String key,List<Parameter> conditions){
+//        //根据传入的JsonObject分解参数
+//        JSONArray jsonArr = obj.getJSONArray("bizobj");
+//        //用户数据获取
+//        JSONObject user_info = jsonArr.getJSONObject(0);
+//        //用户加入企业，获取所加企业相关字段信息
+//        JSONArray ent_info = jsonArr.getJSONArray(1);
+//        //要传入几个key，作为判断的记录是否存在的条件
+//        //分解的参数是key，value形式
+//        Map userMap = setValuesToMap(user_info);
+//
+//
+//        //如果一个人属于多企业，那么就创建多条数据库记录存储，所有字段全部存一遍,用用户的id作为唯一标识
+//        for(int i= 0; i < ent_info.size(); i++){
+//            userMap = setValuesToMap(userMap,ent_info.getJSONObject(i));
+//
+//        }
+//
+//        //执行sql，传入初始查询条件，先执行select判断是否存在数据库，再决定是update，还是add
+//        if(SqlApi.isRecordInSql(tablename,key,conditions)){
+//            SqlApi.sql_update(tablename,userMap,conditions);
+//        }else{
+//            SqlApi.sql_insert(tablename,userMap);
+//        }
+//    }
+//
     public static Map<String,String> setValuesToMap(JSONObject jsonObject){
         Map<String,String> temp = new HashMap<String, String>();
         Iterator it = jsonObject.keys();
@@ -138,13 +171,16 @@ public class CommonApi {
         Iterator it = jsonObject.keys();
         while (it.hasNext()) {
             String key = it.next().toString();
+            System.out.println("key：" + key);
             String value = jsonObject.getString(key);
+            System.out.println("value：" + value);
+
             if (!value.isEmpty()) {
                 temp.put(key,value);
             }
         }
-        map.putAll(temp);
-        return map;
+        temp.putAll(map);
+        return temp;
     }
 
     /**
@@ -167,5 +203,33 @@ public class CommonApi {
         }
 
         return conditions;
+    }
+
+    public static void getCommonValueFromSql(){
+        try {
+            CommonOperation.in();
+            List<Parameter> paras = new ArrayList<Parameter>();
+            paras.add(new Parameter("mobile", ZhaoyanjiConfig.user_account));
+            ZhaoyanjiConfig.user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_id", paras);
+            ZhaoyanjiConfig.global_user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_user_id", paras);
+            ZhaoyanjiConfig.nick_name = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "nickname", paras);
+            ZhaoyanjiConfig.mobile_uid = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "id", paras);
+            ZhaoyanjiConfig.name = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_name", paras);
+            paras.add(new Parameter("ent_name", "阿里巴巴集团食品有限公司"));
+            ZhaoyanjiConfig.ent_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "ent_id", paras);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Parameter> resetConditions(Map key,Map userMap,List<Parameter> conditions){
+        if(conditions.size() > 0 ) {
+            conditions.clear();
+            for (Object set : key.keySet()) {
+                conditions.add(new Parameter(set.toString(), userMap.get(set).toString()));
+            }
+            return conditions;
+        }
+        return null;
     }
 }

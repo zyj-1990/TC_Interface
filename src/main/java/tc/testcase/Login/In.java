@@ -1,5 +1,6 @@
 package tc.testcase.Login;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -26,7 +27,7 @@ import java.util.Map;
 public class In extends ZhaoyanjiConfig{
     @BeforeClass
     public void beforeClass() {
-
+        CommonApi.getCommonValueFromSql();
     }
 
     @Test(dataProvider = "data")
@@ -51,11 +52,19 @@ public class In extends ZhaoyanjiConfig{
         System.out.println(res);
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
-        System.out.println(err_msg);
-        System.out.println(err_code);
         if(err_msg.equals("success") && err_code == 0){
-            System.out.println("get in");
-            CommonApi.setParasToSql(res,"eetopin.eetopin_IT_login","id,ent_id",conditions);
+            //根据传入的JsonObject分解参数
+            JSONArray jsonArr = res.getJSONArray("bizobj");
+            //用户数据获取
+            JSONObject user_info = jsonArr.getJSONObject(0);
+            //用户加入企业，获取所加企业相关字段信息
+            JSONArray ent_info = jsonArr.getJSONArray(1);
+            //要传入几个key，作为判断的记录是否存在的条件
+            Map key = new HashMap();
+            key.put("id",null);
+            key.put("ent_id",null);
+            CommonApi.setJsonArrToSql(ent_info,"eetopin.eetopin_IT_login",key,conditions);
+            CommonApi.setJsonObjectToSql(user_info,"eetopin.eetopin_IT_login",key,conditions);
         }
     }
 
