@@ -157,12 +157,10 @@ public class CommonOperation extends ZhaoyanjiConfig{
         paras.add(new Parameter("password",password));
         paras.add(new Parameter("version",version));
 
-        System.out.println("start");
         Http httpRequest = new Http("get", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/groupDismiss",null,null);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println("end");
         Assert.assertEquals(err_msg,"success","解散叽歪群失败");
         Assert.assertEquals(err_code,0,"解散叽歪群失败");
 

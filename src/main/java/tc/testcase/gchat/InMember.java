@@ -2,6 +2,7 @@ package tc.testcase.gchat;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.ibatis.annotations.Param;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
 import tc.helper.CommonOperation;
+import tc.helper.SqlApi;
 import tc.utils.Entity;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
@@ -28,6 +30,7 @@ import java.util.concurrent.ExecutionException;
 public class InMember extends ZhaoyanjiConfig{
     //生成一个g_id
     static Long g_id = CommonApi.get_UnixTime();
+    List<String> expNickname = new ArrayList<String>();
 
     @BeforeClass
     public void beforeClass() throws Exception{
@@ -37,9 +40,11 @@ public class InMember extends ZhaoyanjiConfig{
 
     @Test
     public void CheckIfGroupCreated() throws Exception {
-        System.out.println("start");
-        CommonOperation.getUserInfoByGGId(g_id);
-        System.out.println("end");
+        List<Parameter> conditions = new ArrayList<Parameter>();
+        conditions.add(new Parameter("user_id",user_id));
+        JSONObject res = CommonOperation.getUserInfoByGGId(g_id);
+        JSONArray jsonArr = res.getJSONArray("bizobj");
+        Assert.assertEquals(jsonArr.getJSONObject(0).getString("nick_name"), SqlApi.sql_select_data(loginTable,"name",conditions),"创建群组失败");
     }
 
     @Test(dataProvider = "data",dependsOnMethods = "CheckIfGroupCreated")
@@ -51,6 +56,7 @@ public class InMember extends ZhaoyanjiConfig{
             Map m = new HashMap();
             JSONObject obj = jsonArr.getJSONObject(CommonOperation.randomInt(100));
             m.put("nick_name",obj.getString("user_name"));
+            expNickname.add(i,obj.getString("user_name"));
             m.put("user_id",obj.getString("user_id"));
             m.put("global_user_id",obj.getString("global_user_id"));
             user_info.add(m);
@@ -61,7 +67,6 @@ public class InMember extends ZhaoyanjiConfig{
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("g_id",g_id));
         paras.add(new Parameter("user_info",JSONArray.fromObject(user_info).toString()));
-        System.out.println(JSONArray.fromObject(user_info).toString());
         paras.add(new Parameter("password",password));
         paras.add(new Parameter("version",version));
 
@@ -77,9 +82,11 @@ public class InMember extends ZhaoyanjiConfig{
     @Test(dependsOnMethods = "inMember")
     public void CheckIfMemberInGroup() throws Exception {
         //获取当前群组的成员
-        System.out.println("start");
-        CommonOperation.getUserInfoByGGId(g_id);
-        System.out.println("end");
+        JSONObject res = CommonOperation.getUserInfoByGGId(g_id);
+        JSONArray jsonArr = res.getJSONArray("bizobj");
+        for(int i = 0; i< 3; i++){
+            Assert.assertEquals(jsonArr.getJSONObject(i+1).getString("nick_name"),expNickname.get(i),"添加成员不在群聊中");
+        }
     }
 
     @AfterClass

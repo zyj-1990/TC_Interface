@@ -14,7 +14,7 @@ import java.util.List;
 public class ZhaoyanjiConfig extends CommonApi{
     public static List<Parameter> headers = null;
 
-    public static String user_account = "13516810150";
+    public static String user_account = "13516810152";
 //    public static String user_account = "18668462782";
     public static String password = "";
     public static String md5Password = "";
@@ -44,7 +44,7 @@ public class ZhaoyanjiConfig extends CommonApi{
 
     static{
         try {
-            if(user_account == "13516810150"){
+            if(user_account == "13516810152"){
                 password = "a123456";
                 md5Password = toMD5(password);
 //                wecha_id = "";

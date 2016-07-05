@@ -70,15 +70,15 @@ public class NewIndex extends ZhaoyanjiConfig{
         data = new Object[][]{
                 //TODO 不管输入什么，输出都是正确，接口没做判断
                 {"首页医院信息查询",user_account,password,version,mobile_uid,"success",0},
-//                {"首页医院信息查询－手机号码为空","",password,version,mobile_uid,"success",0},
-//                {"首页医院信息查询－手机号码格式不对","1866846278356",password,version,mobile_uid,"success",0},
-//                {"首页医院信息查询－手机号码内容不对","!@#$%^&*()_",password,version,mobile_uid,"success",0},
-//                {"首页医院信息查询－手机号码不存在","18668462799",password,version,mobile_uid,"success",0},
-//                {"首页医院信息查询-密码为空",user_account,"",version,mobile_uid,"success",0},
-//                {"首页医院信息查询-密码错误",user_account,"dc483e80a7a0bd9ef71d8cf9736739245656",version,mobile_uid,"success",0},
-//                {"首页医院信息查询-mobile_uid为空",user_account,password,version,"","success",0},
-//                {"首页医院信息查询-mobile_uid不存在",user_account,password,version,"1056666","success",0},
-//                {"首页医院信息查询-mobile_uid为非数字",user_account,password,version,"@#$%^&*(","success",0},
+                {"首页医院信息查询－手机号码为空","",password,version,mobile_uid,"success",0},
+                {"首页医院信息查询－手机号码格式不对","1866846278356",password,version,mobile_uid,"success",0},
+                {"首页医院信息查询－手机号码内容不对","!@#$%^&*()_",password,version,mobile_uid,"success",0},
+                {"首页医院信息查询－手机号码不存在","18668462799",password,version,mobile_uid,"success",0},
+                {"首页医院信息查询-密码为空",user_account,"",version,mobile_uid,"success",0},
+                {"首页医院信息查询-密码错误",user_account,"dc483e80a7a0bd9ef71d8cf9736739245656",version,mobile_uid,"success",0},
+                {"首页医院信息查询-mobile_uid为空",user_account,password,version,"","success",0},
+                {"首页医院信息查询-mobile_uid不存在",user_account,password,version,"1056666","success",0},
+                {"首页医院信息查询-mobile_uid为非数字",user_account,password,version,"@#$%^&*(","success",0},
         };
         return data;
     }
