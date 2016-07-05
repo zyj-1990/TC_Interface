@@ -4,15 +4,12 @@ import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 import tc.utils.Parameter;
 
-import javax.swing.text.html.HTMLDocument;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.lang.Object;
 
 /**
@@ -39,34 +36,21 @@ public class SqlApi {
         //数据库连接池的最小连接数
         config.setMinConnectionsPerPartition(5);
         //数据库连接池的最大连接数
-        config.setMaxConnectionsPerPartition(10);
+        config.setMaxConnectionsPerPartition(50);
         config.setPartitionCount(1);
-    }
 
-
-
-    /**
-     * 初始化数据库配置等相关信息
-     */
-    public SqlApi(){
+        //设置数据库连接池
         try {
-            //加载JDBC驱动
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception e) {
+            //设置连接池配置信息
+            connectionPool = new BoneCP(config);
+            //从数据库连接池获取一个数据库连接
+            connection = connectionPool.getConnection(); // fetch a connection
+            if (connection != null) {
+                System.out.println("Connection successful!----update");
+            }
+        }catch(Exception e){
             e.printStackTrace();
-            return;
         }
-        //数据库的JDBC URL
-        config.setJdbcUrl("jdbc:mysql://10.1.25.117:3306/eetopin");
-        //数据库用户名
-        config.setUsername("fuse");
-        //数据库用户密码
-        config.setPassword("123456");
-        //数据库连接池的最小连接数
-        config.setMinConnectionsPerPartition(5);
-        //数据库连接池的最大连接数
-        config.setMaxConnectionsPerPartition(10);
-        config.setPartitionCount(1);
     }
 
     /**
@@ -77,34 +61,16 @@ public class SqlApi {
     public static void sql_insert(String tableName, Map<String,String> map){
         String keysString = getInsertSql(map,"key");
         String valuesString = getInsertSql(map,"value");
-        //设置数据库连接池
         try {
-            //设置连接池配置信息
-            connectionPool = new BoneCP(config);
-            //从数据库连接池获取一个数据库连接
-            connection = connectionPool.getConnection(); // fetch a connection
-            if (connection != null){
-                System.out.println("Connection successful!");
-                Statement stmt = connection.createStatement();
-                System.out.println("keysString" + keysString);
-                System.out.println("valuesString" + valuesString);
-                int rs = stmt.executeUpdate(" INSERT INTO " + tableName + ""+ keysString + "  values  " + valuesString + "");
-//              if(rs != null){
-//              }
+            if (connection == null) {
+                connection = connectionPool.getConnection(); // fetch a connection
             }
-            //关闭数据库连接池
-            connectionPool.shutdown();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(" INSERT INTO " + tableName + "" + keysString + "  values  " + valuesString + "");
+            stmt.close();
+        }catch(Exception e){
         }
+
     }
 
     /**
@@ -115,68 +81,35 @@ public class SqlApi {
      */
     public static void sql_update(String tableName, Map<String,String> map, List<Parameter> cdn){
         String condition = conditionListToString(cdn);
-
-
-        //设置数据库连接池
         try {
-            //设置连接池配置信息
-            connectionPool = new BoneCP(config);
-            //从数据库连接池获取一个数据库连接
-            connection = connectionPool.getConnection(); // fetch a connection
-            if (connection != null){
-                System.out.println("Connection successful!");
-                for (Map.Entry<String,String> entry : map.entrySet()) {
-                    Statement stmt = connection.createStatement();
-                    int rs = stmt.executeUpdate(" UPDATE " + tableName + " SET " + entry.getKey() + " = " + "\'" +  entry.getValue() + "\'" +  " WHERE " + condition + "");
-//                    if(rs != null){
-//                    }
-                }
-
+            if (connection == null) {
+                connection = connectionPool.getConnection(); // fetch a connection
             }
-            //关闭数据库连接池
-            connectionPool.shutdown();
+            for (Map.Entry<String,String> entry : map.entrySet()) {
+                Statement stmt = connection.createStatement();
+                stmt.executeUpdate(" UPDATE " + tableName + " SET " + entry.getKey() + " = " + "\'" +  entry.getValue() + "\'" +  " WHERE " + condition + "");
+                stmt.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 //      TODO 代码应该无用
     public static void sql_update(String tableName, Map<String,String> map){
         //设置数据库连接池
         try {
-            //设置连接池配置信息
-            connectionPool = new BoneCP(config);
-            //从数据库连接池获取一个数据库连接
-            connection = connectionPool.getConnection(); // fetch a connection
-            if (connection != null){
-                System.out.println("Connection successful!");
-                for (Map.Entry<String,String> entry : map.entrySet()) {
-                    Statement stmt = connection.createStatement();
-                    int rs = stmt.executeUpdate(" UPDATE " + tableName + " SET " + entry.getKey() + " = " + "\'" +  entry.getValue() + "\'" + "");
-//                    if(rs != null){
-//                    }
-                }
-
+            if (connection == null) {
+                connection = connectionPool.getConnection(); // fetch a connection
             }
-            //关闭数据库连接池
-            connectionPool.shutdown();
+            for (Map.Entry<String,String> entry : map.entrySet()) {
+                Statement stmt = connection.createStatement();
+                stmt.executeUpdate(" UPDATE " + tableName + " SET " + entry.getKey() + " = " + "\'" +  entry.getValue() + "\'" + "");
+                stmt.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
@@ -189,30 +122,15 @@ public class SqlApi {
      * @return
      */
     public static ResultSet sql_select(String tableName,String key){
-        //设置数据库连接池
         try {
-            //设置连接池配置信息
-            connectionPool = new BoneCP(config);
-            //从数据库连接池获取一个数据库连接
-            connection = connectionPool.getConnection(); // fetch a connection
-            if (connection != null){
-                System.out.println("Connection successful!");
-                Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery(" SELECT "+ key +  " FROM "+ tableName);
-                return rs;
+            if (connection == null) {
+                connection = connectionPool.getConnection(); // fetch a connection
             }
-            //关闭数据库连接池
-            connectionPool.shutdown();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(" SELECT "+ key +  " FROM "+ tableName);
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return null;
     }
@@ -226,30 +144,15 @@ public class SqlApi {
      */
     public static ResultSet sql_select(String tableName,String key,List<Parameter> cdn){
         String condition = conditionListToString(cdn);
-        //设置数据库连接池
         try {
-            //设置连接池配置信息
-            connectionPool = new BoneCP(config);
-            //从数据库连接池获取一个数据库连接
-            connection = connectionPool.getConnection(); // fetch a connection
-            if (connection != null){
-                System.out.println("Connection successful!");
-                Statement stmt = connection.createStatement();
-                ResultSet rs = stmt.executeQuery(" SELECT "+ key +  " FROM "+ tableName + " WHERE + " + condition + "");
-                return rs;
+            if (connection == null) {
+                connection = connectionPool.getConnection(); // fetch a connection
             }
-            //关闭数据库连接池
-            connectionPool.shutdown();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(" SELECT "+ key +  " FROM "+ tableName + " WHERE + " + condition + "");
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return null;
     }
@@ -339,4 +242,24 @@ public class SqlApi {
             return null;
         }
     }
+
+    public static void CloseSqlConnection(){
+        connectionPool.shutdown();
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//        if (connection != null) {
+//            try {
+//                connection.close();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

@@ -33,8 +33,6 @@ public class In extends ZhaoyanjiConfig{
     @Test(dataProvider = "data")
     public void in(String msg,String user_account,String password,String version,String client_type,String sys_type,String personal_info,String user_token,String expMsg,int expCode) throws Exception {
         List<Parameter> conditions = new ArrayList<Parameter>();
-        CommonApi.addConditions(conditions,loginTable,"id");
-        CommonApi.addConditions(conditions,loginTable,"ent_id");
 
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
@@ -63,8 +61,8 @@ public class In extends ZhaoyanjiConfig{
             Map key = new HashMap();
             key.put("id",null);
             key.put("ent_id",null);
-            CommonApi.setJsonArrToSql(ent_info,"eetopin.eetopin_IT_login",key,conditions);
-            CommonApi.setJsonObjectToSql(user_info,"eetopin.eetopin_IT_login",key,conditions);
+            CommonApi.setJsonArrToSql(ent_info,loginTable,key,conditions);
+            CommonApi.setJsonObjectToSql(user_info,loginTable,key,conditions);
         }
     }
 

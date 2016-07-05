@@ -1,0 +1,29 @@
+<suite reruntimes="0" thread-count="1" parallel="tests" verbose="10" name="同策集团接口测试自动化回归" annotations="JDK" time-out="1800000">
+
+    <test name="登陆获取信息接口_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Login.In"/>
+        </classes>
+    </test>
+    <test name="统计登陆数据_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Login.UpdateLoginStatics"/>
+        </classes>
+    </test>
+    <test name="临时关闭功能列表_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Index.CloseFeatureList"/>
+        </classes>
+    </test>
+    <test name="首页获取医院信息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Index.NewIndex"/>
+        </classes>
+    </test>
+    <test name="重新绑定获取验证码_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.GetVerifyCode"/>
+        </classes>
+    </test>
+
+</suite>

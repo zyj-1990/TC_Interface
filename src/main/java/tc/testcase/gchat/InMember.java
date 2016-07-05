@@ -37,39 +37,39 @@ public class InMember extends ZhaoyanjiConfig{
 
     @Test
     public void CheckIfGroupCreated() throws Exception {
-
+        System.out.println("start");
+        CommonOperation.getUserInfoByGGId(g_id);
+        System.out.println("end");
     }
 
     @Test(dataProvider = "data",dependsOnMethods = "CheckIfGroupCreated")
     public void inMember(String msg,String ent_id,String user_account,Long g_id,String password,String version,String exp_msg,int exp_code) throws Exception {
         JSONArray jsonArr = CommonOperation.list();
-        Map user_info = new HashMap();
+        List<Map> user_info = new ArrayList<Map>();
+
         for(int i = 0; i< 3; i++) {
-            JSONObject obj = jsonArr.getJSONObject(CommonOperation.randomInt(100));
             Map m = new HashMap();
+            JSONObject obj = jsonArr.getJSONObject(CommonOperation.randomInt(100));
             m.put("nick_name",obj.getString("user_name"));
             m.put("user_id",obj.getString("user_id"));
             m.put("global_user_id",obj.getString("global_user_id"));
-            user_info.putAll(m);
+            user_info.add(m);
         }
-        Map m = new HashMap();
-        m.put("ent_id",ent_id);
-        m.put("user_account",user_account);
-        m.put("g_id",g_id);
-        m.put("user_info",user_info);
-        m.put("password",password);
-        m.put("version",version);
 
-        String data = JSONObject.fromObject(m).toString();
-        List<Entity> entities = new ArrayList<Entity>();
-        entities.add(new Entity(data));
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("g_id",g_id));
+        paras.add(new Parameter("user_info",JSONArray.fromObject(user_info).toString()));
+        System.out.println(JSONArray.fromObject(user_info).toString());
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
 
-        Http httpRequest = new Http("post", null, null, entities);
+        Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/inMember",null,null);
-        System.out.println("res:    " + res);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
+        System.out.println("res" + res);
         Assert.assertEquals(err_msg,exp_msg,msg);
         Assert.assertEquals(err_code,exp_code,msg);
     }
@@ -77,6 +77,9 @@ public class InMember extends ZhaoyanjiConfig{
     @Test(dependsOnMethods = "inMember")
     public void CheckIfMemberInGroup() throws Exception {
         //获取当前群组的成员
+        System.out.println("start");
+        CommonOperation.getUserInfoByGGId(g_id);
+        System.out.println("end");
     }
 
     @AfterClass

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 首页获取医院信息
  * Created by zhaoyanji on 2016/6/24.
  */
 public class NewIndex extends ZhaoyanjiConfig{
@@ -48,11 +49,13 @@ public class NewIndex extends ZhaoyanjiConfig{
         System.out.println(res);
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
+
         Map key = new HashMap();
         key.put("ent_id",null);
+
         if(msg == "首页医院信息查询"){
             JSONArray jsonArr = res.getJSONObject("bizobj").getJSONArray("ent_list");
-            CommonApi.setJsonArrToSql(jsonArr,"eetopin.eetopin_IT_hospital",key,conditions);
+            CommonApi.setJsonArrToSql(jsonArr,hospitalTable,key,conditions);
         }
     }
 

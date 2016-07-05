@@ -40,6 +40,7 @@ public class ZhaoyanjiConfig extends CommonApi{
 
     //数据库的表名
     public static String loginTable = "eetopin.eetopin_IT_login";
+    public static String hospitalTable = "eetopin.eetopin_IT_hospital";
 
     static{
         try {

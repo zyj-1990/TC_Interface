@@ -109,12 +109,12 @@ public class CommonApi {
     }
 
     public static void setJsonArrToSql(JSONArray jsonArr,String tablename,Map key,List<Parameter> conditions){
-
         for(int i= 0; i < jsonArr.size(); i++){
             Map userMap = new HashMap();
             userMap = setValuesToMap(userMap,jsonArr.getJSONObject(i));
             //清空条件，分割key的，设置条件的值为map中的值，也就是接口返回的参数
-            resetConditions(key,userMap,conditions);
+//            conditions = resetConditions(key,userMap,conditions);
+            conditions = resetConditions(key,userMap,conditions);
             if(SqlApi.isRecordInSql(tablename,key,conditions)){
                 if(conditions.size() > 0){
                     SqlApi.sql_update(tablename,userMap,conditions);
@@ -171,10 +171,7 @@ public class CommonApi {
         Iterator it = jsonObject.keys();
         while (it.hasNext()) {
             String key = it.next().toString();
-            System.out.println("key：" + key);
             String value = jsonObject.getString(key);
-            System.out.println("value：" + value);
-
             if (!value.isEmpty()) {
                 temp.put(key,value);
             }
@@ -210,6 +207,7 @@ public class CommonApi {
             CommonOperation.in();
             List<Parameter> paras = new ArrayList<Parameter>();
             paras.add(new Parameter("mobile", ZhaoyanjiConfig.user_account));
+
             ZhaoyanjiConfig.user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_id", paras);
             ZhaoyanjiConfig.global_user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_user_id", paras);
             ZhaoyanjiConfig.nick_name = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "nickname", paras);
@@ -223,13 +221,10 @@ public class CommonApi {
     }
 
     public static List<Parameter> resetConditions(Map key,Map userMap,List<Parameter> conditions){
-        if(conditions.size() > 0 ) {
-            conditions.clear();
-            for (Object set : key.keySet()) {
-                conditions.add(new Parameter(set.toString(), userMap.get(set).toString()));
-            }
-            return conditions;
+        conditions.clear();
+        for (Object set : key.keySet()) {
+            conditions.add(new Parameter(set.toString(), userMap.get(set).toString()));
         }
-        return null;
+        return conditions;
     }
 }
