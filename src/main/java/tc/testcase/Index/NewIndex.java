@@ -9,10 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
-import tc.utils.Entity;
-import tc.utils.Http;
-import tc.utils.HttpRequest;
-import tc.utils.Parameter;
+import tc.utils.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +35,10 @@ public class NewIndex extends ZhaoyanjiConfig{
         m.put("password",password);
         m.put("version",version);
         m.put("mobile_uid",mobile_uid);
-        String data = JSONObject.fromObject(m).toString();
-        List<Entity> entities = new ArrayList<Entity>();
-        entities.add(new Entity(data));
+        List<Parameter> paras = JsonConvert.mapToKV(m);
 
-        Http httpRequest = new Http("post", null, headers, entities);
-        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "/index/NewIndex");
+        Http httpRequest = new Http("post", paras, null,null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "/index/NewIndex",null,null);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
         System.out.println(res);

@@ -1,4 +1,4 @@
-package tc.testcase;
+package tc.testcase.crashCoupons;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;

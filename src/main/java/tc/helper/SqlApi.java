@@ -203,12 +203,15 @@ public class SqlApi {
      * @return
      */
     public static String conditionListToString(List<Parameter> cdns){
-        String cdnString = null;
-        cdnString = cdns.get(0).getName() + " = " + "\'" +cdns.get(0).getValue() + "\'";
-        for(int i = 1; i< cdns.size(); i++){
-            cdnString = cdnString + " and " + cdns.get(i).getName() + " = " + "\'" +cdns.get(i).getValue() + "\'";
+        if(cdns.size() > 0) {
+            String cdnString = null;
+            cdnString = cdns.get(0).getName() + " = " + "\'" + cdns.get(0).getValue() + "\'";
+            for (int i = 1; i < cdns.size(); i++) {
+                cdnString = cdnString + " and " + cdns.get(i).getName() + " = " + "\'" + cdns.get(i).getValue() + "\'";
+            }
+            return cdnString;
         }
-        return cdnString;
+        return null;
     }
 
     /**

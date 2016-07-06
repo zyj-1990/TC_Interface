@@ -1,5 +1,5 @@
 <suite reruntimes="0" thread-count="1" parallel="tests" verbose="10" name="同策集团接口测试自动化回归" annotations="JDK" time-out="1800000">
-
+    <!--Login-->
     <test name="登陆获取信息接口_赵炎骥" junit="false" annotations="JDK">
         <classes>
             <class name="tc.testcase.Login.In"/>
@@ -10,6 +10,8 @@
             <class name="tc.testcase.Login.UpdateLoginStatics"/>
         </classes>
     </test>
+
+    <!--Index-->
     <test name="临时关闭功能列表_赵炎骥" junit="false" annotations="JDK">
         <classes>
             <class name="tc.testcase.Index.CloseFeatureList"/>
@@ -20,10 +22,61 @@
             <class name="tc.testcase.Index.NewIndex"/>
         </classes>
     </test>
+    <!--user-->
     <test name="重新绑定获取验证码_赵炎骥" junit="false" annotations="JDK">
         <classes>
             <class name="tc.testcase.user.GetVerifyCode"/>
         </classes>
     </test>
+    <test name="更新密码_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.UpdatePwd"/>
+        </classes>
+    </test>
+    <test name="修改绑定手机_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.UpdateBindMob"/>
+        </classes>
+    </test>
+    <test name="获取城市列表数据_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.GetCityList"/>
+        </classes>
+    </test>
+    <test name="取消关注医院_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.CancleAtt"/>
+        </classes>
+    </test>
+    <test name="首页关注医院_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.AttEnt"/>
+        </classes>
+    </test>
+    <test name="修改用户个人信息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.user.EditPersonal"/>
+        </classes>
+    </test>
+    <!--IntegralRecord-->
+    <!--crashCoupons-->
+    <!--address-->
+    <test name="获取通讯录信息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.address.Lists"/>
+        </classes>
+    </test>
+    <!--gchat-->
+    <test name="创建群聊_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.gchat.Create"/>
+        </classes>
+    </test>
+    <test name="群聊中添加群成员_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.gchat.InMember"/>
+        </classes>
+    </test>
+
 
 </suite>

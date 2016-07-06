@@ -90,7 +90,7 @@ public class UpdatePwd extends ZhaoyanjiConfig  {
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"修改密码",user_account,global_user_id,"a123456",CommonApi.toMD5("a123456"),"a123456","a123456","100000","success",0},
+                {"修改密码",user_account,global_user_id,password,CommonApi.toMD5("a123456"),"a123456","a123456",version,"success",0},
         };
         return data;
     }

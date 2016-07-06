@@ -53,7 +53,7 @@ public class GetCityList extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"获取验证码",user_account,"1","100000","success",0},
+                {"获取验证码",user_account,toMD5(password),version,"success",0},
         };
         return data;
     }

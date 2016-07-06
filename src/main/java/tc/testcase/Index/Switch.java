@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 性能开关
  * Created by zhaoyanji on 2016/6/24.
- * 退出登录
  */
 public class Switch extends ZhaoyanjiConfig{
     @BeforeClass
@@ -55,7 +55,10 @@ public class Switch extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"退出登录","13516810155","","100000","sms","success",0},
+                //type:his openapi开关,topic 话题列表的赞和评论开关,lbs基于位置的商户列表开关,sms 短信开关
+                //op:可选参数 delete 删除缓存
+                {"性能开关-短信",user_account,toMD5(password),version,"sms","success",0},
+                {"性能开关-openApi",user_account,toMD5(password),version,"his","success",0},
         };
         return data;
     }

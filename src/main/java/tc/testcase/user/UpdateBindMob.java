@@ -2,12 +2,11 @@ package tc.testcase.user;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
+import tc.helper.CommonOperation;
+import tc.helper.SqlApi;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
@@ -17,17 +16,18 @@ import java.util.List;
 
 /**
  * Created by zhaoyanji on 6/24/16.
- * 重新绑定后
+ * 修改绑定手机
  */
 public class UpdateBindMob extends ZhaoyanjiConfig{
     @BeforeClass
     public void beforeClass() {
+        //
     }
 
     @Test(dataProvider = "data")
     public void updateBindMob(String msg,String global_user_id,String user_id,String mobile,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
-        String verify_code = "";
-
+        String verify_code = CommonOperation.getVerifyCode(mobile,"1","3");
+        System.out.println(verify_code);
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("global_user_id",global_user_id));
         paras.add(new Parameter("user_id",user_id));
@@ -36,8 +36,6 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
         paras.add(new Parameter("version",version));
-
-        System.out.println(paras);
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/updateBindMob",null,null);
@@ -49,6 +47,12 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
         Assert.assertEquals(err_code, expCode, msg);
     }
 
+    @AfterMethod()
+    public void checkIfBindMobileChanged() throws Exception{
+        System.out.println("start");
+        CommonOperation.updateBindMob(global_user_id,user_account,mobile,toMD5(password));
+    }
+
     @AfterClass
     public void afterClass() {
 
@@ -58,7 +62,7 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"编辑用户名字",global_user_id,mobile_uid,mobile,user_account,password,"100000","success",0},
+                {"修改绑定手机",global_user_id,user_id,"13516810161",user_account,password,version,"success",0},
         };
         return data;
     }

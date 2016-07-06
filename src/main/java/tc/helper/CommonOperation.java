@@ -4,10 +4,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.testng.Assert;
 import tc.config.ZhaoyanjiConfig;
-import tc.utils.Entity;
-import tc.utils.Http;
-import tc.utils.HttpRequest;
-import tc.utils.Parameter;
+import tc.utils.*;
 
 import java.util.*;
 
@@ -199,10 +196,6 @@ public class CommonOperation extends ZhaoyanjiConfig{
      * @throws Exception
      */
     public static JSONObject getUserInfoByGGId(Long g_id) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
-
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("ent_id",ent_id));
         paras.add(new Parameter("user_account",user_account));
@@ -219,6 +212,141 @@ public class CommonOperation extends ZhaoyanjiConfig{
         Assert.assertEquals(err_msg,"success","通过gid获取群聊成员信息失败");
         Assert.assertEquals(err_code,0,"通过gid获取群聊成员信息失败");
 
+        return res;
+    }
+
+    public static String getVerifyCode(String mobile,String is_mobile_bind,String code_type) throws Exception {
+        //验证码类型，2：找回密码（默认）、3：手机号码验证、4：其他
+        java.util.List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("mobile",mobile));
+        paras.add(new Parameter("is_mobile_bind",is_mobile_bind));
+        paras.add(new Parameter("version",version));
+        paras.add(new Parameter("code_type",code_type));
+
+        Http httpRequest = new Http("get", paras, headers, null);
+        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "findPwd/getVerifyCode");
+        String err_msg = CommonApi.get_ErrorMsg(res);
+        int err_code = CommonApi.get_ErrorCode(res);
+        System.out.println(res);
+        Assert.assertEquals(err_msg,"success","");
+        Assert.assertEquals(err_code,0,"");
+        return res.getJSONObject("bizobj").getString("verify_code");
+    }
+
+    public static void updateBindMob(String global_user_id,String mobile,String user_account,String passworde) throws Exception {
+        String verify_code = CommonOperation.getVerifyCode(mobile,"1","3");
+
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("global_user_id",global_user_id));
+        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("mobile",mobile));
+        paras.add(new Parameter("verify_code",verify_code));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        System.out.println(paras);
+
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/updateBindMob",null,null);
+
+        String err_msg = CommonApi.get_ErrorMsg(res);
+        int err_code = CommonApi.get_ErrorCode(res);
+        System.out.println(res);
+        Assert.assertEquals(err_msg, "success", "换绑手机号码失败");
+        Assert.assertEquals(err_code,0, "换绑手机号码失败");
+    }
+
+
+
+    public static void attEnt(String name,String ent_id) throws Exception {
+        List<Parameter> cdn = new ArrayList<Parameter>();
+        cdn.add(new Parameter("name",name));
+
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("id",id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/attEnt",null,null);
+
+        String err_msg = CommonApi.get_ErrorMsg(res);
+        int err_code = CommonApi.get_ErrorCode(res);
+        Assert.assertEquals(err_msg, "success", "关注医院失败");
+        Assert.assertEquals(err_code, 0, "关注医院失败");
+    }
+
+    public static void cancleAtt(String ent_id,String id) throws Exception {
+        List<Parameter> cdn = new ArrayList<Parameter>();
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("id",id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/cancleAtt",null,null);
+
+        CheckResult.checkResult(res,0,"success","取消关注医院失败");
+        try{
+            CommonOperation.getOrderInfo(res.getJSONObject("bizobj").getJSONArray("ent_list"),"name",name,"is_follow");
+        }catch(Exception e){
+            Map m = new HashMap();
+            m.put("is_follow","");
+            SqlApi.sql_update(hospitalTable,m,cdn);
+        }
+    }
+
+    public static void editPersonal(String birthday,String address,String user_name,String nickname,Integer sex) throws Exception {
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("id",id));
+        if(birthday != null){
+            paras.add(new Parameter("birthday",birthday));
+        }
+        if(address != null){
+            paras.add(new Parameter("address",address));
+        }
+        if(user_name != null){
+            paras.add(new Parameter("user_name",user_name));
+        }
+        if(nickname != null){
+            paras.add(new Parameter("nickname",nickname));
+        }
+        if(sex != null){
+            paras.add(new Parameter("sex",sex));
+        }
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/editPersonal",null,null);
+        CheckResult.checkResult(res,0,"success","修改用户个人信息失败");
+    }
+
+    public static JSONObject newIndex(String mobile_uid) throws Exception {
+        List<Parameter> conditions = new ArrayList<Parameter>();
+
+        Map m = new HashMap();
+        m.put("user_account",user_account);
+        m.put("password",password);
+        m.put("version",version);
+        m.put("mobile_uid",mobile_uid);
+        List<Parameter> paras = JsonConvert.mapToKV(m);
+
+        Http httpRequest = new Http("post", paras, null,null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "/index/NewIndex",null,null);
+        CheckResult.checkResult(res,0,"success","首页获取信息失败");
+
+        Map key = new HashMap();
+        key.put("ent_id",null);
+        JSONArray jsonArr = res.getJSONObject("bizobj").getJSONArray("ent_list");
+        CommonApi.setJsonArrToSql(jsonArr,hospitalTable,key,conditions);
         return res;
     }
 

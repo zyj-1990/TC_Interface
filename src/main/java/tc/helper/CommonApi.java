@@ -212,6 +212,7 @@ public class CommonApi {
             ZhaoyanjiConfig.global_user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_user_id", paras);
             ZhaoyanjiConfig.nick_name = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "nickname", paras);
             ZhaoyanjiConfig.mobile_uid = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "id", paras);
+            ZhaoyanjiConfig.id = ZhaoyanjiConfig.mobile_uid;
             ZhaoyanjiConfig.name = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_name", paras);
             paras.add(new Parameter("ent_name", "阿里巴巴集团食品有限公司"));
             ZhaoyanjiConfig.ent_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "ent_id", paras);
@@ -226,5 +227,20 @@ public class CommonApi {
             conditions.add(new Parameter(set.toString(), userMap.get(set).toString()));
         }
         return conditions;
+    }
+
+    public static Object getOrderInfo(JSONArray jsonArr,String key,String value,String orderKey){
+        JSONObject temp = null;
+        Object result = null;
+        if(jsonArr.size() > 0){
+            for(int i = 0; i < jsonArr.size(); i++){
+                if(value.equals(jsonArr.getJSONObject(i).get(key))){
+                    result = jsonArr.getJSONObject(i).get(orderKey);
+                    return result;
+                }
+            }
+
+        }
+        return null;
     }
 }
