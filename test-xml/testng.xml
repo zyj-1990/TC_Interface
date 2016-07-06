@@ -10,18 +10,6 @@
             <class name="tc.testcase.Login.UpdateLoginStatics"/>
         </classes>
     </test>
-
-    <!--Index-->
-    <test name="临时关闭功能列表_赵炎骥" junit="false" annotations="JDK">
-        <classes>
-            <class name="tc.testcase.Index.CloseFeatureList"/>
-        </classes>
-    </test>
-    <test name="首页获取医院信息_赵炎骥" junit="false" annotations="JDK">
-        <classes>
-            <class name="tc.testcase.Index.NewIndex"/>
-        </classes>
-    </test>
     <!--user-->
     <test name="重新绑定获取验证码_赵炎骥" junit="false" annotations="JDK">
         <classes>
@@ -58,6 +46,18 @@
             <class name="tc.testcase.user.EditPersonal"/>
         </classes>
     </test>
+    <!--Index-->
+    <test name="临时关闭功能列表_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Index.CloseFeatureList"/>
+        </classes>
+    </test>
+    <test name="首页获取医院信息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Index.NewIndex"/>
+        </classes>
+    </test
+
     <!--IntegralRecord-->
     <!--crashCoupons-->
     <!--address-->
