@@ -1,4 +1,4 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 /**
  * 管理员操作用户申请入群

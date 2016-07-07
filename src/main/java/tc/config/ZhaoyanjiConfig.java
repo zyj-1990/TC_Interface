@@ -19,6 +19,8 @@ public class ZhaoyanjiConfig extends CommonApi{
     public static String password = "";
     public static String md5Password = "";
     public static String global_user_id = "";
+    public static String global_ent_id = "";
+    public static String token = "";
     public static String user_id = "";
     public static String mobile_uid = "";
     public static String version = "100000";
@@ -64,10 +66,6 @@ public class ZhaoyanjiConfig extends CommonApi{
         }catch(Exception e){
             e.printStackTrace();
         }
-
-
         headers = setHeaders();
     }
-
-
 }

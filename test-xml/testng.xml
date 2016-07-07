@@ -13,37 +13,37 @@
     <!--user-->
     <test name="重新绑定获取验证码_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.GetVerifyCode"/>
+            <class name="tc.testcase.User.GetVerifyCode"/>
         </classes>
     </test>
     <test name="更新密码_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.UpdatePwd"/>
+            <class name="tc.testcase.User.UpdatePwd"/>
         </classes>
     </test>
     <test name="修改绑定手机_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.UpdateBindMob"/>
+            <class name="tc.testcase.User.UpdateBindMob"/>
         </classes>
     </test>
     <test name="获取城市列表数据_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.GetCityList"/>
+            <class name="tc.testcase.User.GetCityList"/>
         </classes>
     </test>
     <test name="取消关注医院_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.CancleAtt"/>
+            <class name="tc.testcase.User.CancleAtt"/>
         </classes>
     </test>
     <test name="首页关注医院_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.AttEnt"/>
+            <class name="tc.testcase.User.AttEnt"/>
         </classes>
     </test>
     <test name="修改用户个人信息_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.user.EditPersonal"/>
+            <class name="tc.testcase.User.EditPersonal"/>
         </classes>
     </test>
     <!--Index-->
@@ -56,27 +56,59 @@
         <classes>
             <class name="tc.testcase.Index.NewIndex"/>
         </classes>
-    </test
+    </test>
+    <test name="性能开关_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Index.Switch"/>
+        </classes>
+    </test>
+    <test name="用户个人信息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Index.Person"/>
+        </classes>
+    </test>
 
-    <!--IntegralRecord-->
-    <!--crashCoupons-->
     <!--address-->
     <test name="获取通讯录信息_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.address.Lists"/>
+            <class name="tc.testcase.Address.Lists"/>
         </classes>
     </test>
+    <!--iosPush-->
+    <test name="绑定用户_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.IosPush.Bind"/>
+        </classes>
+    </test>
+    <test name="解绑用户_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.IosPush.Unbind"/>
+        </classes>
+    </test>
+    <test name="应用消息数量更新_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.IosPush.UpdateIcon"/>
+        </classes>
+    </test>
+    <test name="ios推送消息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.IosPush.Push"/>
+        </classes>
+    </test>
+    <!--IntegralRecord-->
+    <!--crashCoupons-->
+
     <!--gchat-->
     <test name="创建群聊_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.gchat.Create"/>
+            <class name="tc.testcase.Gchat.Create"/>
         </classes>
     </test>
     <test name="群聊中添加群成员_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.gchat.InMember"/>
+            <class name="tc.testcase.Gchat.InMember"/>
         </classes>
     </test>
-
+    <!--杭口城西医院模块操作_调用接口测试-->
 
 </suite>

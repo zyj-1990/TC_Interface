@@ -39,12 +39,7 @@ public class NewIndex extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null,null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "/index/NewIndex",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg, expMsg, msg);
-        Assert.assertEquals(err_code, expCode, msg);
-
+        CheckResult.checkResult(res,expCode,expMsg,msg);
         Map key = new HashMap();
         key.put("ent_id",null);
 

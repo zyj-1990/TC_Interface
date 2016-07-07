@@ -1,20 +1,16 @@
-package tc.testcase.user;
+package tc.testcase.User;
 
 import net.sf.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
-import tc.helper.CommonApi;
 import tc.helper.CommonOperation;
 import tc.utils.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhaoyanji on 6/24/16.

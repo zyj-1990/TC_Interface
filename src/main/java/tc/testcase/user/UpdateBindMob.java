@@ -1,4 +1,4 @@
-package tc.testcase.user;
+package tc.testcase.User;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;
@@ -6,7 +6,6 @@ import org.testng.annotations.*;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
 import tc.helper.CommonOperation;
-import tc.helper.SqlApi;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;

@@ -1,4 +1,4 @@
-package tc.testcase.user;
+package tc.testcase.User;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;
@@ -13,7 +13,6 @@ import tc.utils.HttpRequest;
 import tc.utils.Parameter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhaoyanji on 6/24/16.

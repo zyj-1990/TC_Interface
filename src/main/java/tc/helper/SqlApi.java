@@ -162,8 +162,11 @@ public class SqlApi {
      */
     public static String sql_select_data(String tableName,String key,List<Parameter> cdn)throws Exception{
         ResultSet rs = sql_select(tableName,key,cdn);
-        rs.next();
-        return rs.getString(key);
+
+        if(rs.next()){
+            return rs.getString(key);
+        }
+        return "";
     }
 
     /**

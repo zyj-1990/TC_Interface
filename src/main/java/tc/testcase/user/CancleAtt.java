@@ -1,4 +1,4 @@
-package tc.testcase.user;
+package tc.testcase.User;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;

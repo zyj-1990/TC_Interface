@@ -1,4 +1,4 @@
-package tc.testcase.user;
+package tc.testcase.User;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;
@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
-import tc.helper.CommonApi;
 import tc.helper.CommonOperation;
 import tc.helper.SqlApi;
 import tc.utils.CheckResult;
@@ -52,7 +51,6 @@ public class AttEnt extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/attEnt",null,null);
-        System.out.println(res);
         CheckResult.checkResult(res,expCode,expMsg,msg);
     }
 

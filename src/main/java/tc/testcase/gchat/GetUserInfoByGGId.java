@@ -1,4 +1,4 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;

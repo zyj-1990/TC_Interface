@@ -1,4 +1,4 @@
-package tc.testcase.user;
+package tc.testcase.User;
 
 import net.sf.json.JSONObject;
 import org.apache.http.NameValuePair;
@@ -12,7 +12,6 @@ import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
-import tc.utils.Parameter;
 
 import java.util.ArrayList;
 import java.util.List;

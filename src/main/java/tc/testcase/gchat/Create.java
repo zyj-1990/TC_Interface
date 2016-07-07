@@ -1,22 +1,17 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 import net.sf.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
-import tc.utils.Entity;
-import tc.utils.Http;
-import tc.utils.HttpRequest;
-import tc.utils.Parameter;
+import tc.helper.CommonOperation;
+import tc.utils.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 创建叽歪群
@@ -49,16 +44,13 @@ public class Create extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/create",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
         System.out.println(res);
-        Assert.assertEquals(err_msg,exp_msg,msg);
-        Assert.assertEquals(err_code,exp_code,msg);
+        CheckResult.checkResult(res,exp_code,exp_msg,msg);
     }
 
     @AfterClass
-    public void afterClass() {
-
+    public void afterClass() throws Exception{
+        CommonOperation.groupDismiss(g_id);
     }
 
     @DataProvider

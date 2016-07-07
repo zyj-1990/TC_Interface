@@ -1,13 +1,12 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 import net.sf.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
-import tc.helper.CommonApi;
+import tc.utils.CheckResult;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
@@ -44,11 +43,9 @@ public class GetGivenUserGroup extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("get", paras, headers, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "gchat/getUserGroup");
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
         System.out.println(res);
-        Assert.assertEquals(err_msg,exp_msg,msg);
-        Assert.assertEquals(err_code,exp_code,msg);
+        CheckResult.checkResult(res,exp_code,exp_msg,msg);
+
     }
 
     @AfterClass

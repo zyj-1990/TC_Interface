@@ -18,6 +18,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MIME;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -34,7 +35,9 @@ import java.io.File;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhaoyanji on 6/19/16.
@@ -338,7 +341,7 @@ public class HttpRequest {
         List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
-                entity.addPart(p.getName(), new StringBody(p.getValue().toString()));
+                entity.addPart(p.getName(), new StringBody(p.getValue().toString(),MIME.UTF8_CHARSET));
             }
         }
 
@@ -347,6 +350,8 @@ public class HttpRequest {
             FileBody fb = new FileBody(file);
             entity.addPart(fileKey, fb);
         }
+
+        Map m = new HashMap();
 
         post.setEntity(entity);
         HttpResponse response = httpClient.execute(post);
@@ -364,7 +369,9 @@ public class HttpRequest {
                 return responseJson;
             } catch (JSONException e) {
                 e.printStackTrace();
-                return null;
+                m.put("wrong",resString);
+                System.out.println(JSONObject.fromObject(m));
+                return JSONObject.fromObject(m);
             }
         }
     }

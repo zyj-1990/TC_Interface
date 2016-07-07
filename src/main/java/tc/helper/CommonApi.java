@@ -210,6 +210,8 @@ public class CommonApi {
 
             ZhaoyanjiConfig.user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_id", paras);
             ZhaoyanjiConfig.global_user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_user_id", paras);
+            ZhaoyanjiConfig.global_ent_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_ent_id", paras);
+            ZhaoyanjiConfig.token = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_token", paras);
             ZhaoyanjiConfig.nick_name = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "nickname", paras);
             ZhaoyanjiConfig.mobile_uid = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "id", paras);
             ZhaoyanjiConfig.id = ZhaoyanjiConfig.mobile_uid;
@@ -230,7 +232,6 @@ public class CommonApi {
     }
 
     public static Object getOrderInfo(JSONArray jsonArr,String key,String value,String orderKey){
-        JSONObject temp = null;
         Object result = null;
         if(jsonArr.size() > 0){
             for(int i = 0; i < jsonArr.size(); i++){
@@ -242,5 +243,23 @@ public class CommonApi {
 
         }
         return null;
+    }
+
+    /**
+     * 获取当前日期的前一天
+     * @param day
+     */
+    public static Long getDaysAgo(int day){
+        Calendar cal = Calendar.getInstance();//使用默认时区和语言环境获得一个日历。
+        cal.add(Calendar.DAY_OF_MONTH, -day);//取当前日期的前一天.
+
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String dayAgo = format.format(cal.getTime());
+        return getUnixTime(dayAgo);
+    }
+
+    public static Long getUnixTime(String time){
+        
+        return 0L;
     }
 }

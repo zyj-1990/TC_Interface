@@ -1,8 +1,7 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.ibatis.annotations.Param;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +11,7 @@ import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
 import tc.helper.CommonOperation;
 import tc.helper.SqlApi;
-import tc.utils.Entity;
+import tc.utils.CheckResult;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 /**
  * 邀请叽歪群成员
@@ -72,11 +70,7 @@ public class InMember extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/inMember",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println("res" + res);
-        Assert.assertEquals(err_msg,exp_msg,msg);
-        Assert.assertEquals(err_code,exp_code,msg);
+        CheckResult.checkResult(res,exp_code,exp_msg,msg);
     }
 
     @Test(dependsOnMethods = "inMember")

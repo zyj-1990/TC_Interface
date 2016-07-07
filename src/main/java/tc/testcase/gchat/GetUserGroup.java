@@ -1,4 +1,4 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 import net.sf.json.JSONObject;
 import org.testng.Assert;
@@ -8,15 +8,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
-import tc.utils.Entity;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 获取用户所有群组
@@ -51,6 +48,7 @@ public class GetUserGroup extends ZhaoyanjiConfig{
         System.out.println(res);
         Assert.assertEquals(err_msg,exp_msg,msg);
         Assert.assertEquals(err_code,exp_code,msg);
+
     }
 
     @AfterClass

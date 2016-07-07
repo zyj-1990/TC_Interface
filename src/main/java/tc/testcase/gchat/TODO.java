@@ -1,4 +1,4 @@
-package tc.testcase.gchat;
+package tc.testcase.Gchat;
 
 /**
  * Created by zhaoyanji on 2016/6/24.
