@@ -48,6 +48,7 @@ public class html extends ZhaoyanjiConfig{
         System.out.println(res);
         Document doc = Jsoup.parse(res);
         Element e = doc.getElementById("J_SubmitData");
+        doc.getElementsByTag()
 
         String linkHref = e.attr("href");
         String data_url = e.attr("data-url");

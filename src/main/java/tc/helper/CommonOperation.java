@@ -7,6 +7,17 @@ import tc.config.ZhaoyanjiConfig;
 import tc.utils.*;
 
 import java.io.File;
+import net.sf.json.JSONObject;
+import tc.config.ZhaoyanjiConfig;
+import tc.utils.Entity;
+import tc.utils.Http;
+import tc.utils.HttpRequest;
+import tc.utils.Parameter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.*;
 
 /**
@@ -33,8 +44,7 @@ public class CommonOperation extends ZhaoyanjiConfig{
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host, "/login/in", null,null);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
-        Assert.assertEquals(err_msg, "success", "登陆获取信息接口调用成功");
-        Assert.assertEquals(err_code, 0, "登陆获取信息接口调用成功");
+        CheckResult.checkResult(res,0,"success","登陆获取信息接口调用成功");
         if(err_msg.equals("success") && err_code == 0){
             //根据传入的JsonObject分解参数
             JSONArray jsonArr = res.getJSONArray("bizobj");
@@ -340,12 +350,15 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
     /**
      *
+     * @param user_account
+     * @param password
+     * @param version
      * @param mobile_uid
      * @return
      * @throws Exception
      */
-    public static JSONObject newIndex(String mobile_uid) throws Exception {
-        List<Parameter> conditions = new ArrayList<Parameter>();
+    public static JSONObject newIndex(String user_account, String password, String version, String mobile_uid) throws Exception {
+        setHeaders();
 
         Map m = new HashMap();
         m.put("user_account",user_account);
@@ -353,6 +366,10 @@ public class CommonOperation extends ZhaoyanjiConfig{
         m.put("version",version);
         m.put("mobile_uid",mobile_uid);
         List<Parameter> paras = JsonConvert.mapToKV(m);
+        List<Parameter> conditions = new ArrayList<Parameter>();
+        String data = JSONObject.fromObject(m).toString();
+        List<Entity> entities = new ArrayList<Entity>();
+        entities.add(new Entity(data));
 
         Http httpRequest = new Http("post", paras, null,null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "/index/NewIndex",null,null);
@@ -518,6 +535,4 @@ public class CommonOperation extends ZhaoyanjiConfig{
         Random ra =new Random();
         return ra.nextInt(pagesize);
     }
-
-
 }
