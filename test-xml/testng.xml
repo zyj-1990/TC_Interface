@@ -13,7 +13,7 @@
     <!--user-->
     <test name="重新绑定获取验证码_赵炎骥" junit="false" annotations="JDK">
         <classes>
-            <class name="tc.testcase.User.GetVerifyCode"/>
+            <class name="tc.testcase.FindPwd.GetVerifyCode"/>
         </classes>
     </test>
     <test name="更新密码_赵炎骥" junit="false" annotations="JDK">
@@ -110,5 +110,30 @@
         </classes>
     </test>
     <!--杭口城西医院模块操作_调用接口测试-->
-
+    <!--断言要完善-->
+    <test name="预约_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Appointments.Add"/>
+        </classes>
+    </test>
+    <test name="查询预约信息_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.Appointments.PatientInfo"/>
+        </classes>
+    </test>
+    <test name="查询团队列表_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.HospitalInfo.Team"/>
+        </classes>
+    </test>
+    <test name="查询医生列表_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.HospitalInfo.Doctor"/>
+        </classes>
+    </test>
+    <test name="排队预约_赵炎骥" junit="false" annotations="JDK">
+        <classes>
+            <class name="tc.testcase.HospitalInfo.Queue"/>
+        </classes>
+    </test>
 </suite>

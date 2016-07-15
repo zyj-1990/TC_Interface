@@ -28,10 +28,6 @@ public class GetUserInfoByGGId extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void getUserInfoByGGId(String msg,String ent_id,String user_account,String user_id,String password,String version,String exp_msg,int exp_code) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
-
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("ent_id",ent_id));
         paras.add(new Parameter("user_account",user_account));

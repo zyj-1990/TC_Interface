@@ -376,6 +376,57 @@ public class HttpRequest {
         }
     }
 
+    public static JSONObject sendMultiPartRequest(Http httpRequest, String host, String path) throws Exception {
+        URIBuilder builder = new URIBuilder();
+        builder.setScheme("http").setHost(host).setPath(path);
+        String url = builder.build().toString();
+
+        System.out.println();
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        // header builder
+        List<Parameter> headers = httpRequest.getHeaders();
+        if (headers != null) {
+            for (Parameter p : headers) {
+                System.out.println("   [ Header ] " + String.format("%1$-20s :     %2$s", p.getName(), p.getValue()));
+                post.addHeader(p.getName(), p.getValue().toString());
+            }
+        }
+
+        MultipartEntity entity = new MultipartEntity();
+        List<Parameter> paras = httpRequest.getParameters();
+        if (paras != null) {
+            for (Parameter p : paras) {
+                entity.addPart(p.getName(), new StringBody(p.getValue().toString(),MIME.UTF8_CHARSET));
+            }
+        }
+
+        Map m = new HashMap();
+
+        post.setEntity(entity);
+        HttpResponse response = httpClient.execute(post);
+        String resString = "";
+        if (response.getEntity() != null)
+            resString = EntityUtils.toString(response.getEntity(), "UTF-8");
+        // 当没有可返回的JSONObject时，默认打印出Http响应码
+        if (resString.isEmpty()) {
+            int code = response.getStatusLine().getStatusCode();
+            logger.info("INFO: Didn't get HTTP return entity, response code is: " + code);
+            return null;
+        } else {
+            try {
+                JSONObject responseJson = JSONObject.fromObject(resString);
+                return responseJson;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                m.put("wrong",resString);
+                System.out.println(JSONObject.fromObject(m));
+                return JSONObject.fromObject(m);
+            }
+        }
+    }
+
     public static String sendRequest_GetHTML(Http httpRequest, String host, String path) throws Exception {
         HttpUriRequest request = null;
         URIBuilder builder = new URIBuilder();

@@ -32,10 +32,6 @@ public class GroupDismiss extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void groupDismiss(String msg,String ent_id,String user_account,String g_id,String user_id,String password,String version,String exp_msg,int exp_code) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
-
         Map m = new HashMap();
         m.put("ent_id",ent_id);
         m.put("user_account",user_account);

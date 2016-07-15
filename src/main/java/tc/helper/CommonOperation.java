@@ -6,6 +6,7 @@ import org.testng.Assert;
 import tc.config.ZhaoyanjiConfig;
 import tc.utils.*;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -16,7 +17,7 @@ public class CommonOperation extends ZhaoyanjiConfig{
      *
      * @throws Exception
      */
-    public static void in() throws Exception {
+    public static void in(String user_account,String password) throws Exception {
         List<Parameter> conditions = new ArrayList<Parameter>();
 
         List<Parameter> paras = new ArrayList<Parameter>();
@@ -75,15 +76,10 @@ public class CommonOperation extends ZhaoyanjiConfig{
         paras.add(new Parameter("version",version));
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/create",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        Assert.assertEquals(err_msg,"success","创建叽歪群失败");
-        Assert.assertEquals(err_code,0,"创建叽歪群失败");
+        CheckResult.checkResult(res,0,"success","创建叽歪群失败");
     }
-
-
     public static JSONArray list() throws Exception {
-        int pagesize = 100;
+        int pagesize = 1000;
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account", user_account));
         paras.add(new Parameter("password", password));
@@ -95,48 +91,52 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("get", paras, headers, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "address/list");
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        Assert.assertEquals(err_msg, "success", "获取通讯录数据失败");
-        Assert.assertEquals(err_code, 0, "获取通讯录数据失败");
-
+        CheckResult.checkResult(res,0,"success","获取通讯录数据失败");
         JSONArray jsonArr = res.getJSONObject("bizobj").getJSONArray("addbook");
         return jsonArr;
     }
 
-    /**
-     *
-     * @param nick_name
-     * @param g_type
-     * @param is_open
-     * @param g_id
-     * @param is_ent
-     * @param intro
-     * @throws Exception
-     */
-    public void create(String nick_name,String g_type,String is_open,String g_id,String is_ent,String intro) throws Exception {
+    public static void addMemberAndCheckIfIn(String ent_id,String user_account,Long g_id) throws Exception {
+        List<String> expNickname = new ArrayList<String>();
+
+        JSONArray jsonArr = CommonOperation.list();
+        List<Map> user_info = new ArrayList<Map>();
+
+        for(int i = 0; i< 3; i++) {
+            Map m = new HashMap();
+            JSONObject obj = jsonArr.getJSONObject(CommonOperation.randomInt(100));
+            m.put("nick_name",obj.getString("user_name"));
+            expNickname.add(i,obj.getString("user_name"));
+            m.put("user_id",obj.getString("user_id"));
+            m.put("global_user_id",obj.getString("global_user_id"));
+            user_info.add(m);
+        }
+
+        Map m = new HashMap();
+        m.put("nick_name",getOrderInfo(jsonArr,"mobile_phone",user_account,"user_name"));
+        expNickname.add(3,getOrderInfo(jsonArr,"mobile_phone",user_account,"user_name").toString());
+        m.put("user_id",getOrderInfo(jsonArr,"mobile_phone",user_account,"user_id"));
+        m.put("global_user_id",getOrderInfo(jsonArr,"mobile_phone",user_account,"global_user_id"));
+        user_info.add(m);
 
         List<Parameter> paras = new ArrayList<Parameter>();
-        paras.add(new Parameter("nick_name",nick_name));
         paras.add(new Parameter("ent_id",ent_id));
         paras.add(new Parameter("user_account",user_account));
-        paras.add(new Parameter("g_type",g_type));
-        paras.add(new Parameter("is_open",is_open));
-        paras.add(new Parameter("global_user_id",global_user_id));
         paras.add(new Parameter("g_id",g_id));
-        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("user_info",JSONArray.fromObject(user_info).toString()));
         paras.add(new Parameter("password",password));
-        paras.add(new Parameter("is_ent",is_ent));
-        paras.add(new Parameter("intro",intro));
         paras.add(new Parameter("version",version));
 
-        Http httpRequest = new Http("post", paras, headers, null);
-        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/create",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg,"success","创建叽歪群失败");
-        Assert.assertEquals(err_code,0,"创建叽歪群失败");
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/inMember",null,null);
+        CheckResult.checkResult(res,0,"success","群组添加成员成功");
+
+        //获取当前群组的成员
+        JSONObject result = CommonOperation.getUserInfoByGGId(g_id);
+        JSONArray jsonArr1 = result.getJSONArray("bizobj");
+        for(int i = 0; i< 3; i++){
+            Assert.assertEquals(jsonArr1.getJSONObject(i+1).getString("nick_name"),expNickname.get(i),"添加成员不在群聊中");
+        }
     }
 
     /**
@@ -156,11 +156,7 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("get", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/groupDismiss",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        Assert.assertEquals(err_msg,"success","解散叽歪群失败");
-        Assert.assertEquals(err_code,0,"解散叽歪群失败");
-
+        CheckResult.checkResult(res,0,"success","解散叽歪群失败");
     }
 
     /**
@@ -181,12 +177,7 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "gchat/groupDetail",null,null);
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg,"success","获取群组信息失败");
-        Assert.assertEquals(err_code,0,"获取群组信息失败");
-
+        CheckResult.checkResult(res,0,"success","获取群组信息失败");
         return  res;
     }
 
@@ -206,35 +197,42 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("get", paras, null, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "gchat/getUserInfoByGGId");
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg,"success","通过gid获取群聊成员信息失败");
-        Assert.assertEquals(err_code,0,"通过gid获取群聊成员信息失败");
-
+        CheckResult.checkResult(res,0,"success","通过gid获取群聊成员信息失败");
         return res;
     }
 
+    /**
+     *
+     * @param mobile
+     * @param is_mobile_bind
+     * @param code_type
+     * @return
+     * @throws Exception
+     */
     public static String getVerifyCode(String mobile,String is_mobile_bind,String code_type) throws Exception {
         //验证码类型，2：找回密码（默认）、3：手机号码验证、4：其他
         java.util.List<Parameter> paras = new ArrayList<Parameter>();
-        paras.add(new Parameter("user_account",user_account));
-        paras.add(new Parameter("password",password));
         paras.add(new Parameter("mobile",mobile));
-        paras.add(new Parameter("is_mobile_bind",is_mobile_bind));
-        paras.add(new Parameter("version",version));
+        if(is_mobile_bind != null){
+            paras.add(new Parameter("is_mobile_bind",is_mobile_bind));
+        }
         paras.add(new Parameter("code_type",code_type));
+        paras.add(new Parameter("version",version));
 
         Http httpRequest = new Http("get", paras, headers, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "findPwd/getVerifyCode");
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg,"success","");
-        Assert.assertEquals(err_code,0,"");
+        CheckResult.checkResult(res,0,"success","获取验证码失败");
         return res.getJSONObject("bizobj").getString("verify_code");
     }
 
+    /**
+     *
+     * @param global_user_id
+     * @param mobile
+     * @param user_account
+     * @param passworde
+     * @throws Exception
+     */
     public static void updateBindMob(String global_user_id,String mobile,String user_account,String passworde) throws Exception {
         String verify_code = CommonOperation.getVerifyCode(mobile,"1","3");
 
@@ -251,16 +249,15 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/updateBindMob",null,null);
-
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg, "success", "换绑手机号码失败");
-        Assert.assertEquals(err_code,0, "换绑手机号码失败");
+        CheckResult.checkResult(res,0,"success","换绑手机号码失败");
     }
 
-
-
+    /**
+     *
+     * @param name
+     * @param ent_id
+     * @throws Exception
+     */
     public static void attEnt(String name,String ent_id) throws Exception {
         List<Parameter> cdn = new ArrayList<Parameter>();
         cdn.add(new Parameter("name",name));
@@ -274,12 +271,15 @@ public class CommonOperation extends ZhaoyanjiConfig{
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/attEnt",null,null);
 
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        Assert.assertEquals(err_msg, "success", "关注医院失败");
-        Assert.assertEquals(err_code, 0, "关注医院失败");
+        CheckResult.checkResult(res,0,"success","关注医院失败");
     }
 
+    /**
+     *
+     * @param ent_id
+     * @param id
+     * @throws Exception
+     */
     public static void cancleAtt(String ent_id,String id) throws Exception {
         List<Parameter> cdn = new ArrayList<Parameter>();
         List<Parameter> paras = new ArrayList<Parameter>();
@@ -302,6 +302,15 @@ public class CommonOperation extends ZhaoyanjiConfig{
         }
     }
 
+    /**
+     *
+     * @param birthday
+     * @param address
+     * @param user_name
+     * @param nickname
+     * @param sex
+     * @throws Exception
+     */
     public static void editPersonal(String birthday,String address,String user_name,String nickname,Integer sex) throws Exception {
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("id",id));
@@ -329,6 +338,12 @@ public class CommonOperation extends ZhaoyanjiConfig{
         CheckResult.checkResult(res,0,"success","修改用户个人信息失败");
     }
 
+    /**
+     *
+     * @param mobile_uid
+     * @return
+     * @throws Exception
+     */
     public static JSONObject newIndex(String mobile_uid) throws Exception {
         List<Parameter> conditions = new ArrayList<Parameter>();
 
@@ -350,8 +365,159 @@ public class CommonOperation extends ZhaoyanjiConfig{
         return res;
     }
 
+    /**
+     *
+     * @param name
+     * @param mobile
+     * @return
+     * @throws Exception
+     */
+    public static JSONObject cardList(String name,String mobile) throws Exception {
+        List<Parameter> headers = new ArrayList<Parameter>();
+        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
+        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
+
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("user_account", user_account));
+        paras.add(new Parameter("password", password));
+        paras.add(new Parameter("version", version));
+        paras.add(new Parameter("global_user_id", global_user_id));
+        paras.add(new Parameter("name", name));
+        paras.add(new Parameter("mobile", mobile));
+
+        Http httpRequest = new Http("get", paras, headers, null);
+        JSONObject res = HttpRequest.sendRequest(httpRequest, host, "/integral/cardList");
+        CheckResult.checkResult(res, 0, "success", "获取积分会员卡的列表失败");
+        return res;
+    }
+
+    /**
+     *
+     * @param ent_id
+     * @param user_id
+     * @param content
+     * @return
+     * @throws Exception
+     */
+    public static JSONObject addDynamic(String ent_id,String user_id,String content) throws Exception {
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("content",content));
+        paras.add(new Parameter("type","2"));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+        int sum = CommonOperation.randomInt(9);
+        for(int i = 0; i < sum; i++ ){
+            paras.add(new Parameter("upfile["+ i +"]",CommonOperation.upLoadPic()));
+        }
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"weibo/add",null,null);
+        CheckResult.checkResult(res,0,"success","发布动态失败");
+        return res;
+    }
+
+    /**
+     *
+     * @param ent_id
+     * @param w_ids
+     * @param op_user_id
+     * @throws Exception
+     */
+    public static void delDynamic(String ent_id,String w_ids,String op_user_id) throws Exception {
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("w_ids",w_ids));
+        paras.add(new Parameter("op_user_id",op_user_id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"weibo/del",null,null);
+        CheckResult.checkResult(res,0,"success","删除动态");
+    }
+
+    public static JSONObject addFeedBack(String user_id,String ent_id,String content) throws Exception {
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("content",content));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "feedback/add",null,null);
+        CheckResult.checkResult(res,0,"success","添加反馈失败");
+        return res;
+    }
+
+    public static String upLoadPic() throws Exception{
+        String pic_url = null;
+        //本地res下存文件，文件名命名为数字，10个，随机抽取1个图片文件
+        String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator ;
+        //调用upload接口上传图片
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+        String fileName = randomInt(9) + ".jpg";
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"weibo/upload","file",new File(filePath + fileName));
+        CheckResult.checkResult(res,0,"success","上传图片失败");
+        //将返回结果的图片在服务器的地址返回回去
+        pic_url = res.getJSONObject("bizobj").getString("url");
+        return pic_url;
+    }
+
+    public static JSONObject noticeList(String ent_id) throws  Exception{
+        java.util.List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        Http httpRequest = new Http("get", paras, null, null);
+        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest,host,"notice/list");
+        CheckResult.checkResult(res,0,"success","获取公告列表失败");
+        return res;
+    }
+
+    public static JSONObject noticeList(String ent_id,String page,String pageSize) throws  Exception{
+        java.util.List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("page",page));
+        paras.add(new Parameter("pageSize",pageSize));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        Http httpRequest = new Http("get", paras, null, null);
+        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest,host,"notice/list");
+        CheckResult.checkResult(res,0,"success","获取公告列表失败");
+        return res;
+    }
+
+    public static String time(String type) throws Exception {
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+        paras.add(new Parameter("type",type));
+
+        Http httpRequest = new Http("get", paras, headers, null);
+        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "/index/Time");
+        CheckResult.checkResult(res,0,"success","获取服务器时间戳失败");
+        return res.getJSONObject("bizobj").getString("time");
+    }
+
     public static int randomInt(int pagesize){
         Random ra =new Random();
         return ra.nextInt(pagesize);
     }
+
+
 }

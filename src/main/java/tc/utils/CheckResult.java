@@ -9,9 +9,9 @@ import tc.helper.CommonApi;
  */
 public class CheckResult {
     public static void checkResult(JSONObject res,int expCode,String expMsg,String msg){
+        System.out.println(res);
         String err_msg = CommonApi.get_ErrorMsg(res);
         int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
     }

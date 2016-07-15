@@ -48,8 +48,8 @@ public class InMember extends ZhaoyanjiConfig{
     @Test(dataProvider = "data",dependsOnMethods = "CheckIfGroupCreated")
     public void inMember(String msg,String ent_id,String user_account,Long g_id,String password,String version,String exp_msg,int exp_code) throws Exception {
         JSONArray jsonArr = CommonOperation.list();
-        List<Map> user_info = new ArrayList<Map>();
 
+        List<Map> user_info = new ArrayList<Map>();
         for(int i = 0; i< 3; i++) {
             Map m = new HashMap();
             JSONObject obj = jsonArr.getJSONObject(CommonOperation.randomInt(100));

@@ -27,10 +27,6 @@ public class GroupDetail extends ZhaoyanjiConfig{
 
     @Test(dataProvider = "data")
     public void groupDetail(String msg,String user_account,String password,String version,String exp_msg,int exp_code) throws Exception {
-        List<Parameter> headers = new ArrayList<Parameter>();
-        headers.add(new Parameter("Accept", "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"));
-        headers.add(new Parameter("Content-Type", "application/x-www-form-urlencoded"));
-
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));

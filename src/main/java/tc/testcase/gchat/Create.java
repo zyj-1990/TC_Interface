@@ -44,7 +44,6 @@ public class Create extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host , "gchat/create",null,null);
-        System.out.println(res);
         CheckResult.checkResult(res,exp_code,exp_msg,msg);
     }
 

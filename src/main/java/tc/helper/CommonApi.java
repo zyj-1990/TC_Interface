@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -204,10 +205,9 @@ public class CommonApi {
 
     public static void getCommonValueFromSql(){
         try {
-            CommonOperation.in();
+            CommonOperation.in(ZhaoyanjiConfig.user_account,ZhaoyanjiConfig.password);
             List<Parameter> paras = new ArrayList<Parameter>();
             paras.add(new Parameter("mobile", ZhaoyanjiConfig.user_account));
-
             ZhaoyanjiConfig.user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "user_id", paras);
             ZhaoyanjiConfig.global_user_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_user_id", paras);
             ZhaoyanjiConfig.global_ent_id = SqlApi.sql_select_data(ZhaoyanjiConfig.loginTable, "global_ent_id", paras);
@@ -240,7 +240,6 @@ public class CommonApi {
                     return result;
                 }
             }
-
         }
         return null;
     }
@@ -252,14 +251,18 @@ public class CommonApi {
     public static Long getDaysAgo(int day){
         Calendar cal = Calendar.getInstance();//使用默认时区和语言环境获得一个日历。
         cal.add(Calendar.DAY_OF_MONTH, -day);//取当前日期的前一天.
-
-        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String dayAgo = format.format(cal.getTime());
-        return getUnixTime(dayAgo);
+        cal.set(cal.HOUR,0);
+        cal.set(cal.MINUTE,0);
+        cal.set(cal.SECOND,0);
+        cal.set(cal.MILLISECOND,0);
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        System.out.println(sdf.format(cal.getTime()));
+        return cal.getTimeInMillis();
     }
 
-    public static Long getUnixTime(String time){
-
-        return 0L;
+    public static String translateTime(Long time){
+        String rqTime = time.toString().substring(0,time.toString().length()-3);
+        rqTime = rqTime + ".000000";
+        return rqTime;
     }
 }

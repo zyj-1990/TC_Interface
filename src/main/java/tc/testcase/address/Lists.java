@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
+import tc.utils.CheckResult;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
@@ -22,12 +23,10 @@ import java.util.List;
 public class Lists extends ZhaoyanjiConfig{
     @BeforeClass
     public void beforeClass() {
-
     }
 
     @Test(dataProvider = "data")
     public void list(String msg,String user_account,String password,String version,String ent_id,String user_id,String page,String pagesize,String exp_msg,int exp_code) throws Exception {
-
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
@@ -39,11 +38,7 @@ public class Lists extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("get", paras, headers, null);
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "address/list");
-        String err_msg = CommonApi.get_ErrorMsg(res);
-        int err_code = CommonApi.get_ErrorCode(res);
-        System.out.println(res);
-        Assert.assertEquals(err_msg,exp_msg,msg);
-        Assert.assertEquals(err_code,exp_code,msg);
+        CheckResult.checkResult(res,exp_code,exp_msg,msg);
     }
 
     @AfterClass

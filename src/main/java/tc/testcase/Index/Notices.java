@@ -16,6 +16,7 @@
 //import java.util.List;
 //
 ///**
+// * 消息提醒列表（根据消息时间倒序排列）
 // * Created by zhaoyanji on 6/19/16.
 // */
 //public class Notices extends ZhaoyanjiConfig{
