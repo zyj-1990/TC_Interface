@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 获取群组动态列表数据
  * Created by zhaoyanji on 2016/6/24.
  */
 public class GroupDetail extends ZhaoyanjiConfig{
@@ -51,7 +52,7 @@ public class GroupDetail extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"获取群组动态列表数据","13516810150","dc483e80a7a0bd9ef71d8cf973673924","100000","success",0},
+                {"获取群组动态列表数据",user_account,toMD5(password),version,"success",0},
         };
         return data;
     }

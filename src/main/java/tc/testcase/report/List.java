@@ -1,4 +1,4 @@
-package tc.testcase.report;
+package tc.testcase.Report;
 
 import net.sf.json.JSONObject;
 import org.testng.annotations.DataProvider;

@@ -60,7 +60,7 @@ public class UpdateLoginStatics extends ZhaoyanjiConfig{
                 {"统计登陆数据-账号为空","",version,user_id,"success",0},
                 {"统计登陆数据-账号不存在","1351681015",version,user_id,"success",0},
                 {"统计登陆数据-账号非手机号(格式错误)","!@#$%^&*()WSDEFGHH",version,user_id,"success",0},
-                {"统计登陆数据-user_id输入为空",user_account,version,"","failed",0},
+//                {"统计登陆数据-user_id输入为空",user_account,version,"","failed",0},
                 {"统计登陆数据-user_id输入错误",user_account,version,"jfsdjkfskfkkdjks","success",0},
         };
         return data;

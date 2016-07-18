@@ -18,14 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 用户注册
  * Created by zhaoyanji on 2016/7/8.
  */
 public class Reg extends ZhaoyanjiConfig{
     //TODO 注册新账号接口不能写成接口自动化，无法注销叽歪账号
     //可以删库，要写delete数据库方法，根据条件删除，与开发确认新注册账号都有哪些表新增了数据
+    String reg_mobile = "15158037968";
+    List<Parameter> cdn = new ArrayList<Parameter>();
 
     @Test(dataProvider = "data")
-    public void attEnt(String msg,String mobile,String password,String nickname,String sex,String username,String version,String expMsg,int expCode) throws Exception {
+    public void reg(String msg,String mobile,String password,String nickname,String sex,String username,String version,String expMsg,int expCode) throws Exception {
 
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("mobile",mobile));
@@ -42,13 +45,18 @@ public class Reg extends ZhaoyanjiConfig{
 
     @AfterClass
     public void afterClass() throws Exception{
+        cdn.add(new Parameter("MOBILE_PHONE",reg_mobile));
+        SqlApi.sql_delete("eetopin.eetopin_user",cdn);
+        cdn.clear();
+        cdn.add(new Parameter("MOBILE",reg_mobile));
+        SqlApi.sql_delete("eetopin.eetopin_mobile_user",cdn);
     }
 
     @DataProvider
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"用户注册","15158037968","a123456","nickname","0","名字",version,"success",0},
+                {"用户注册",reg_mobile,"a123456","nickname","0","名字",version,"success",0},
         };
         return data;
     }

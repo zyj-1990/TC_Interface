@@ -7,6 +7,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonApi;
+import tc.helper.CommonOperation;
 import tc.helper.SqlApi;
 import tc.utils.CheckResult;
 import tc.utils.Http;
@@ -19,6 +20,7 @@ import java.util.*;
  * Created by zhaoyanji on 2016/7/14.
  */
 public class Att extends ZhaoyanjiConfig{
+
     @Test(dataProvider = "data")
     public void att(String msg,String ent_id,String user_id,String attent_user_id,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
         java.util.List<Parameter> paras = new ArrayList<Parameter>();
@@ -34,9 +36,14 @@ public class Att extends ZhaoyanjiConfig{
         CheckResult.checkResult(res,expCode,expMsg,msg);
     }
 
+    @Test(dataProvider = "data",dependsOnMethods = "att")
+    public void  recoverAttOperation(String msg,String ent_id,String user_id,String attent_user_id,String user_account,String password,String version,String expMsg,int expCode) throws Exception{
+        //关注了以后再取消关注，或者反过来
+        CommonOperation.att(ent_id,user_id,attent_user_id);
+    }
+
     @AfterClass
     public void afterClass(){
-
     }
 
     @DataProvider

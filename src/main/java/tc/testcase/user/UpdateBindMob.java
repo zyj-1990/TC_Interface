@@ -26,7 +26,6 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
     @Test(dataProvider = "data")
     public void updateBindMob(String msg,String global_user_id,String user_id,String mobile,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
         String verify_code = CommonOperation.getVerifyCode(mobile,"1","3");
-        System.out.println(verify_code);
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("global_user_id",global_user_id));
         paras.add(new Parameter("user_id",user_id));
@@ -46,10 +45,9 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
         Assert.assertEquals(err_code, expCode, msg);
     }
 
-    @AfterMethod()
-    public void checkIfBindMobileChanged() throws Exception{
-        System.out.println("start");
-        CommonOperation.updateBindMob(global_user_id,user_account,mobile,toMD5(password));
+    @Test(dataProvider = "data",dependsOnMethods = "updateBindMob")
+    public void checkIfBindMobileChanged(String msg,String global_user_id,String user_id,String mobile,String user_account,String password,String version,String expMsg,int expCode) throws Exception{
+        CommonOperation.updateBindMob(global_user_id,user_account,mobile);
     }
 
     @AfterClass
@@ -61,7 +59,7 @@ public class UpdateBindMob extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"修改绑定手机",global_user_id,user_id,"13516810161",user_account,password,version,"success",0},
+                {"修改绑定手机",global_user_id,user_id,"15158038000",user_account,password,version,"success",0},
         };
         return data;
     }

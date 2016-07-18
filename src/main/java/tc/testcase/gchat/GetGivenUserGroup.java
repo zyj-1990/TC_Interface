@@ -57,7 +57,7 @@ public class GetGivenUserGroup extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"获取所有的群组动态列表数据","72720","13516810150","20","111","180011","dc483e80a7a0bd9ef71d8cf973673924","1","0","100000","success",0},
+                {"获取所有的群组动态列表数据",ent_id,user_account,"20","111",user_id,toMD5(password),"1","0",version,"success",0},
         };
         return data;
     }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 团队列表
  * Created by zhaoyanji on 2016/7/7.
  */
 public class Team extends ZhaoyanjiConfig{

@@ -1,5 +1,6 @@
 package tc.utils;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.testng.Assert;
 import tc.helper.CommonApi;
@@ -14,5 +15,14 @@ public class CheckResult {
         int err_code = CommonApi.get_ErrorCode(res);
         Assert.assertEquals(err_msg, expMsg, msg);
         Assert.assertEquals(err_code, expCode, msg);
+    }
+
+    public static boolean checkIfInJsonArray(String key, Object value, JSONArray jsonArr){
+        for(int i = 0; i < jsonArr.size(); i++){
+            if(value.equals(jsonArr.getJSONObject(i).getString(key))){
+                return true;
+            }
+        }
+        return false;
     }
 }

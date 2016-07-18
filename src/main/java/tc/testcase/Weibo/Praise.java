@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 点赞
  * Created by zhaoyanji on 2016/7/14.
  */
 public class Praise extends ZhaoyanjiConfig{
@@ -29,11 +30,8 @@ public class Praise extends ZhaoyanjiConfig{
     public void beforeClass() throws Exception{
         //根据手机号码获取其他相关信息
         JSONArray jsonArr = CommonOperation.list();
-        System.out.println(jsonArr);
         addUser_id = CommonApi.getOrderInfo(jsonArr,"mobile_phone","15158037967","user_id").toString();
-        System.out.println("user_id " + user_id);
         addEnt_id = CommonApi.getOrderInfo(jsonArr,"mobile_phone","15158037967","ent_id").toString();
-        System.out.println("ent_id :" + ent_id);
         user_name = CommonApi.getOrderInfo(jsonArr,"mobile_phone","15158037967","user_name").toString();
         //创建动态
         w_id = CommonOperation.addDynamic(addEnt_id,addUser_id,"点赞专用").getJSONObject("bizobj").getString("w_id");
@@ -47,7 +45,6 @@ public class Praise extends ZhaoyanjiConfig{
         paras.add(new Parameter("ent_id",ent_id));
         paras.add(new Parameter("author_id",author_id));
         paras.add(new Parameter("user_name",user_name));
-        System.out.println("w_id+++++++++++++++++++++++++++++++++++++++++++++++++++" + w_id);
         paras.add(new Parameter("w_id",w_id));
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));
@@ -55,9 +52,7 @@ public class Praise extends ZhaoyanjiConfig{
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "weibo/praise",null,null);
-        System.out.println("start");
         CheckResult.checkResult(res,exp_code,exp_msg,msg);
-        System.out.println("end");
     }
 
     @AfterClass
@@ -70,7 +65,7 @@ public class Praise extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"添加反馈",user_id,ent_id,addUser_id,user_name,w_id,user_account,toMD5(password),version,"success",0},
+                {"点赞",user_id,ent_id,addUser_id,user_name,w_id,user_account,toMD5(password),version,"success",0},
         };
         return data;
     }

@@ -1,4 +1,4 @@
-package tc.testcase.medical;
+package tc.testcase.Medical;
 
 import net.sf.json.JSONObject;
 import org.testng.annotations.DataProvider;

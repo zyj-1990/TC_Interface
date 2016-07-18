@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 
 public class List extends ZhaoyanjiConfig{
-    String msg_id = "";
     @Test(dataProvider = "data")
     public void list(String msg,String ent_id,String user_id,String msg_type,String is_read,String update_time,String direction,String page,String pageSize,String user_account,String password,String version,String expMsg,int expCode) throws Exception {
         java.util.List<Parameter> paras = new ArrayList<Parameter>();
@@ -27,7 +26,7 @@ public class List extends ZhaoyanjiConfig{
         paras.add(new Parameter("is_read",is_read));
         paras.add(new Parameter("update_time",update_time));
         paras.add(new Parameter("direction",direction));
-        paras.add(new Parameter("page",page));
+//        paras.add(new Parameter("page",page));
         paras.add(new Parameter("pageSize",pageSize));
         paras.add(new Parameter("user_account",user_account));
         paras.add(new Parameter("password",password));

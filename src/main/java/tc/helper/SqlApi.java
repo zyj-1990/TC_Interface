@@ -113,7 +113,20 @@ public class SqlApi {
         }
     }
 
-
+    public static void sql_delete(String tableName, List<Parameter> cdn){
+        String condition = conditionListToString(cdn);
+        try {
+            if (connection == null) {
+                connection = connectionPool.getConnection(); // fetch a connection
+            }
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(" DELETE FROM " + tableName + "  WHERE " + condition + "");
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        }
+    }
 
     /**
      * 查询数据库

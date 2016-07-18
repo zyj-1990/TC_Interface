@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 现金券列表
  * Created by zhaoyanji on 6/18/16.
  */
 public class CrashCoupons extends ZhaoyanjiConfig {

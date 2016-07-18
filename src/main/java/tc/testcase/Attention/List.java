@@ -14,6 +14,7 @@ import tc.utils.Parameter;
 import java.util.ArrayList;
 
 /**
+ * 关注列表
  * Created by zhaoyanji on 2016/7/14.
  */
 public class List extends ZhaoyanjiConfig{
@@ -45,7 +46,7 @@ public class List extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"用户所属企业列表",user_account,toMD5(password),version,user_id,ent_id,1,50,"success",0},
+                {"关注列表",user_account,toMD5(password),version,user_id,ent_id,1,50,"success",0},
         };
         return data;
     }

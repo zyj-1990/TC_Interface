@@ -1,13 +1,11 @@
 package tc.testcase.FindPwd;
 
 import net.sf.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
-import tc.helper.CommonApi;
 import tc.utils.CheckResult;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
@@ -52,7 +50,7 @@ public class GetVerifyCode extends ZhaoyanjiConfig{
         Object[][] data = null;
         data = new Object[][]{
                 //验证码类型，2：找回密码（默认）、3：手机号码验证、4：其他
-                {"获取验证码",user_account,"1","3",version,"success",0},
+                {"获取验证码","15158037969","1","3",version,"success",0},
         };
         return data;
     }

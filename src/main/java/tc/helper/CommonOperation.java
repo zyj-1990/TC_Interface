@@ -14,6 +14,7 @@ import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
 
+import javax.json.JsonArray;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,8 @@ import java.util.*;
  * Created by zhaoyanji on 2016/7/4.
  */
 public class CommonOperation extends ZhaoyanjiConfig{
+    public static StringBuilder temp = new StringBuilder("[]");
+
     /**
      *
      * @throws Exception
@@ -240,10 +243,9 @@ public class CommonOperation extends ZhaoyanjiConfig{
      * @param global_user_id
      * @param mobile
      * @param user_account
-     * @param passworde
      * @throws Exception
      */
-    public static void updateBindMob(String global_user_id,String mobile,String user_account,String passworde) throws Exception {
+    public static void updateBindMob(String global_user_id,String mobile,String user_account) throws Exception {
         String verify_code = CommonOperation.getVerifyCode(mobile,"1","3");
 
         List<Parameter> paras = new ArrayList<Parameter>();
@@ -252,14 +254,26 @@ public class CommonOperation extends ZhaoyanjiConfig{
         paras.add(new Parameter("mobile",mobile));
         paras.add(new Parameter("verify_code",verify_code));
         paras.add(new Parameter("user_account",user_account));
-        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("password",toMD5(password)));
         paras.add(new Parameter("version",version));
-
-        System.out.println(paras);
 
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"user/updateBindMob",null,null);
         CheckResult.checkResult(res,0,"success","换绑手机号码失败");
+    }
+
+    public static void att(String ent_id,String user_id,String attent_user_id) throws Exception {
+        java.util.List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("attent_user_id",attent_user_id));
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+
+        Http httpRequest = new Http("post", paras, null, null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"attention/att");
+        CheckResult.checkResult(res,0,"success","关注/取消关注用户");
     }
 
     /**
@@ -384,6 +398,37 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
     /**
      *
+     * @param mobile_uid
+     * @return
+     * @throws Exception
+     */
+    public static JSONObject newIndex(String mobile_uid) throws Exception {
+        setHeaders();
+
+        Map m = new HashMap();
+        m.put("user_account",user_account);
+        m.put("password",password);
+        m.put("version",version);
+        m.put("mobile_uid",mobile_uid);
+        List<Parameter> paras = JsonConvert.mapToKV(m);
+        List<Parameter> conditions = new ArrayList<Parameter>();
+        String data = JSONObject.fromObject(m).toString();
+        List<Entity> entities = new ArrayList<Entity>();
+        entities.add(new Entity(data));
+
+        Http httpRequest = new Http("post", paras, null,null);
+        JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest, host, "/index/NewIndex",null,null);
+        CheckResult.checkResult(res,0,"success","首页获取信息失败");
+
+        Map key = new HashMap();
+        key.put("ent_id",null);
+        JSONArray jsonArr = res.getJSONObject("bizobj").getJSONArray("ent_list");
+        CommonApi.setJsonArrToSql(jsonArr,hospitalTable,key,conditions);
+        return res;
+    }
+
+    /**
+     *
      * @param name
      * @param mobile
      * @return
@@ -406,6 +451,27 @@ public class CommonOperation extends ZhaoyanjiConfig{
         JSONObject res = HttpRequest.sendRequest(httpRequest, host, "/integral/cardList");
         CheckResult.checkResult(res, 0, "success", "获取积分会员卡的列表失败");
         return res;
+    }
+
+    public static JSONArray entList() throws Exception{
+        List<Parameter> paras = new ArrayList<Parameter>();
+        paras.add(new Parameter("user_account",user_account));
+        paras.add(new Parameter("password",password));
+        paras.add(new Parameter("version",version));
+        paras.add(new Parameter("ent_id",ent_id));
+        paras.add(new Parameter("user_id",user_id));
+        paras.add(new Parameter("update_time","0"));
+        paras.add(new Parameter("direction","1"));
+        paras.add(new Parameter("show_disable","2"));
+        paras.add(new Parameter("show_notice","1"));
+        paras.add(new Parameter("show_comment","1"));
+        paras.add(new Parameter("page","1"));
+        paras.add(new Parameter("pagesize","50"));
+
+        Http httpRequest = new Http("get", paras, headers, null);
+        JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest, host, "weibo/entList");
+        CheckResult.checkResult(res,0,"success","获取企业动态列表失败");
+        return res.getJSONArray("bizobj");
     }
 
     /**
@@ -453,6 +519,15 @@ public class CommonOperation extends ZhaoyanjiConfig{
         Http httpRequest = new Http("post", paras, null, null);
         JSONObject res = HttpRequest.sendMultiPartRequest(httpRequest,host,"weibo/del",null,null);
         CheckResult.checkResult(res,0,"success","删除动态");
+    }
+
+
+    public static void delAllDynamic() throws Exception {
+        JSONArray jsonArr = entList();
+
+        for(int i = 0; i < jsonArr.size(); i++){
+            delDynamic(jsonArr.getJSONObject(i).getString("ent_id"),jsonArr.getJSONObject(i).getString("w_id"),jsonArr.getJSONObject(i).getString("user_id"));
+        }
     }
 
     public static JSONObject addFeedBack(String user_id,String ent_id,String content) throws Exception {
@@ -516,6 +591,22 @@ public class CommonOperation extends ZhaoyanjiConfig{
         JSONObject res = HttpRequest.sendRequest_EntityOrParas(httpRequest,host,"notice/list");
         CheckResult.checkResult(res,0,"success","获取公告列表失败");
         return res;
+    }
+
+    public static String createUrl(String url){
+        String tempUrl = splitUrl(url);
+        if(temp.length() == 2){
+            temp.insert(temp.length()-1,"\"" +tempUrl + "\"");
+        }else{
+            temp.insert(temp.length()-1,"," + "\"" +tempUrl + "\"");
+        }
+        return temp.toString();
+    }
+
+    public static String splitUrl(String url){
+        String[] str =url.split("entity");
+        System.out.println(str[1]);
+        return "/entity" + str[1];
     }
 
     public static String time(String type) throws Exception {

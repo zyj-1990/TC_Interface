@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by zhaoyanji on 2016/7/14.
  */
 public class Detail extends ZhaoyanjiConfig{
-    //msgid怎么获取
+    //msgid从List接口的返回参数中获取
     String msg_id = "";
     @Test(dataProvider = "data")
     public void detail(String msg,String ent_id,String user_id,String msg_id,String user_account,String password,String version,String expMsg,int expCode) throws Exception {

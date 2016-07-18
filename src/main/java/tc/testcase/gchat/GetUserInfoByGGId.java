@@ -54,7 +54,7 @@ public class GetUserInfoByGGId extends ZhaoyanjiConfig{
     public Object[][] data(){
         Object[][] data = null;
         data = new Object[][]{
-                {"查看叽歪群的所有用户信息","72720","13516810150","180011","dc483e80a7a0bd9ef71d8cf973673924","100000","success",0},
+                {"查看叽歪群的所有用户信息",ent_id,user_account,user_account,toMD5(password),version,"success",0},
         };
         return data;
     }

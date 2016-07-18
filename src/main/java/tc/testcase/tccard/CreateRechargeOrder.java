@@ -1,4 +1,4 @@
-package tc.testcase.tccard;
+package tc.testcase.Tccard;
 
 /**
  * Created by zhaoyanji on 2016/7/8.

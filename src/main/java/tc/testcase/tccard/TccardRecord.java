@@ -1,4 +1,4 @@
-package tc.testcase.tccard;
+package tc.testcase.Tccard;
 
 import net.sf.json.JSONObject;
 import org.testng.annotations.AfterClass;
