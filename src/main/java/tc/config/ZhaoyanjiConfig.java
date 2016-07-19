@@ -33,8 +33,10 @@ public class ZhaoyanjiConfig extends CommonApi{
     public static int sex = 0;
     public static String mobile = "";
     public static String id = "";
-
-    public static String wecha_id = "";
+    //15158037967
+//    public static String wecha_id = "ZRkXdUGiOs3tbBgCO1/J2w==";
+    //13516810150
+    public static String wecha_id = "u5ES5mem8h4WajFmqoANfA==";
     //
     public static String ent_id = "";
 
@@ -42,7 +44,11 @@ public class ZhaoyanjiConfig extends CommonApi{
     //通用url相关配置
     public static String host = "";
     public static String OnLineHost = "mobileapi.eetop.com/";
-    public static String SanYeHost = "shop.eetop.com/";
+    public static String SanYeHost = "ectest.zotohui.com";
+    public static String CunjiHost = "shop.eetopintest.com";
+    public static String YinXiuHost = "ectest.zotohui.com";
+    public static String HangkouHost = "10.1.25.71";
+    public static String HangkouCXHost = "";
     public static String common_path = "";
     public static int port = 0;
 

@@ -609,6 +609,14 @@ public class CommonOperation extends ZhaoyanjiConfig{
         return "/entity" + str[1];
     }
 
+    public static String getUrlPath(String url){
+        String tempUrl = "";
+        if(url.substring(0,4).equals("http")){
+            tempUrl = url.split("com")[1];
+        }
+        return tempUrl;
+    }
+
     public static String time(String type) throws Exception {
         List<Parameter> paras = new ArrayList<Parameter>();
         paras.add(new Parameter("user_account",user_account));
