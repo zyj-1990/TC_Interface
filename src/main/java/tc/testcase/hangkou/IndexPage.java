@@ -28,7 +28,7 @@ public class IndexPage extends CommonOperation{
     @BeforeClass
     public void getUrl() throws Exception{
         JSONObject result = newIndex(user_id);
-        cunji_urlPath = getUrlPath(getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","杭口总院","wifi_website").toString());
+        cunji_urlPath = getUrlPath("71",getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","杭口总院","wifi_website").toString());
         ent_id = getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","杭口总院","ent_id").toString();
     }
 

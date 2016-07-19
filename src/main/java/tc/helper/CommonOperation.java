@@ -609,10 +609,10 @@ public class CommonOperation extends ZhaoyanjiConfig{
         return "/entity" + str[1];
     }
 
-    public static String getUrlPath(String url){
+    public static String getUrlPath(String pattern,String url){
         String tempUrl = "";
         if(url.substring(0,4).equals("http")){
-            tempUrl = url.split("com")[1];
+            tempUrl = url.split(pattern)[1];
         }
         return tempUrl;
     }
