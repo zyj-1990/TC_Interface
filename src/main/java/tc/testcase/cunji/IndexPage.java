@@ -45,16 +45,10 @@ public class IndexPage extends CommonOperation{
         paras.add(new Parameter("user_id",user_id));
         paras.add(new Parameter("ent_id",ent_id));
 
-        Http httpRequest = new Http("get", paras, null, null);
+        Http httpRequest = new Http("get", paras, headers, null);
         String res = "";
-        if(cunji_urlPath.contains("?")){
-            String[] str = cunji_urlPath.split("[?]");
-            cunji_urlPath = str[0];
-            String path = str[1];
-            res = HttpRequest.sendRequest_GetHTML(httpRequest,CunjiHost,cunji_urlPath,path);
-        }else{
-            res = HttpRequest.sendRequest_GetHTML(httpRequest,CunjiHost,cunji_urlPath);
-        }
+        res = HttpRequest.sendRequest_GetHTML(httpRequest,CunjiHost,cunji_urlPath);
+
         Document doc = Jsoup.parse(res);
         Assert.assertEquals(doc.title(),"存济网络医院","页面跳转正确");
         Elements elements = doc.getElementsByClass("menu");
@@ -70,6 +64,11 @@ public class IndexPage extends CommonOperation{
         Assert.assertEquals(elements.select("h4").get(4).text(),"助孕社区","内容错误");
         Assert.assertEquals(elements.select("a").get(5).attr("href"),"/index.php?g=Wap&m=Savaid&a=guidelist&token=ed57a8bd-15cc-d9b1-6a1e-97ec43337684","就诊指南网址错误");
         Assert.assertEquals(elements.select("h4").get(5).text(),"就诊指南","内容错误");
+
+        Elements urls = doc.select("a");
+        CheckAllUrlsValidUnderCurPage(urls,httpRequest,CunjiHost);
+        System.out.println(urls.size());
+
     }
 
     @DataProvider

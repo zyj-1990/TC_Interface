@@ -22,12 +22,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="IT_test" />
         <module name="monkey" />
+      </profile>
+      <profile default="false" name="Annotation profile for IT_test" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="IT_test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="IT_test" target="1.5" />
+      <module name="IT_test" target="1.7" />
       <module name="monkey" target="1.5" />
     </bytecodeTargetLevel>
   </component>

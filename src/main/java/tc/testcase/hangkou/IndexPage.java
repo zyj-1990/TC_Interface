@@ -3,15 +3,12 @@ package tc.testcase.hangkou;
 import net.sf.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import tc.config.ZhaoyanjiConfig;
 import tc.helper.CommonOperation;
-import tc.utils.CheckResult;
 import tc.utils.Http;
 import tc.utils.HttpRequest;
 import tc.utils.Parameter;
@@ -23,12 +20,12 @@ import java.util.List;
  * Created by zhaoyanji on 2016/7/19.
  */
 public class IndexPage extends CommonOperation{
-    String cunji_urlPath = "";
+    String hk_urlPath = "";
     String ent_id = "";
     @BeforeClass
     public void getUrl() throws Exception{
         JSONObject result = newIndex(user_id);
-        cunji_urlPath = getUrlPath("71",getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","杭口总院","wifi_website").toString());
+        hk_urlPath = getUrlPath("71",getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","杭口总院","wifi_website").toString());
         ent_id = getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","杭口总院","ent_id").toString();
     }
 
@@ -45,17 +42,11 @@ public class IndexPage extends CommonOperation{
         paras.add(new Parameter("user_id",user_id));
         paras.add(new Parameter("ent_id",ent_id));
 
-        Http httpRequest = new Http("get", paras, null, null);
+        Http httpRequest = new Http("get", paras, headers, null);
         String res = "";
-        if(cunji_urlPath.contains("?")){
-            String[] str = cunji_urlPath.split("[?]");
-            cunji_urlPath = str[0];
-            String path = str[1];
-            res = HttpRequest.sendRequest_GetHTML(httpRequest,CunjiHost,cunji_urlPath,path);
-        }else{
-            res = HttpRequest.sendRequest_GetHTML(httpRequest,CunjiHost,cunji_urlPath);
-        }
+        res = HttpRequest.sendRequest_GetHTML(httpRequest,HangkouHost,hk_urlPath);
         Document doc = Jsoup.parse(res);
+        System.out.println(doc);
         Elements elements = doc.getElementsByClass("firstPage-jw-modules");
         Assert.assertEquals(elements.select("a").get(0).attr("href"),"/out/out_h5/wifi/index.php?r=wifi/citys","快速预约网址错误");
         Assert.assertEquals(elements.select("a").get(0).text(),"快速预约","内容错误");
@@ -63,6 +54,9 @@ public class IndexPage extends CommonOperation{
         Assert.assertEquals(elements.select("a").get(1).text(),"医院官网","内容错误");
         Assert.assertEquals(elements.select("a").get(2).attr("href"),"/out/out_h5/wifi/index.php?r=my/index","个人中心网址错误");
         Assert.assertEquals(elements.select("a").get(2).text(),"个人中心","内容错误");
+
+        Elements urls = doc.select("a");
+        CheckAllUrlsValidUnderCurPage(urls,httpRequest,HangkouHost);
     }
 
     @DataProvider

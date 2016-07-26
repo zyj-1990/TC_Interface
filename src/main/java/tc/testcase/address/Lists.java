@@ -1,13 +1,11 @@
 package tc.testcase.Address;
 
 import net.sf.json.JSONObject;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import tc.config.ZhaoyanjiConfig;
-import tc.helper.CommonApi;
 import tc.utils.CheckResult;
 import tc.utils.Http;
 import tc.utils.HttpRequest;

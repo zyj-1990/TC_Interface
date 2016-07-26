@@ -27,6 +27,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
 import tc.config.ZhaoyanjiConfig;
+import tc.helper.CommonApi;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -428,83 +429,66 @@ public class HttpRequest {
     }
 
     public static String sendRequest_GetHTML(Http httpRequest, String host, String path) throws Exception {
+
         HttpUriRequest request = null;
         URIBuilder builder = new URIBuilder();
-        builder.setScheme("http").setHost(host).setPath(path);
+        String url = "";
+
         List<Parameter> paras = httpRequest.getParameters();
         if (paras != null) {
             for (Parameter p : paras) {
                 builder.addParameter(p.getName(), p.getValue().toString());
-
             }
         }
-        String url = builder.build().toString();
 
-        if (httpRequest.getConnection().equalsIgnoreCase("post")) {
-            logger.info("   [  post  ] " + url);
-            request = new HttpPost(url);
-        } else if (httpRequest.getConnection().equalsIgnoreCase("get")) {
-            logger.info("   [  get   ] " + url);
-            request = new HttpGet(url);
-        } else if (httpRequest.getConnection().equalsIgnoreCase("delete")) {
-            logger.info("   [ delete ] " + url);
-            request = new HttpDelete(url);
-        } else if (httpRequest.getConnection().equalsIgnoreCase("put")) {
-            logger.info("   [  put   ] " + url);
-            request = new HttpPut(url);
-        } else
-            Assert.fail("connection donnot support :" + httpRequest.getConnection());
-        // header builder
-        List<Parameter> headers = httpRequest.getHeaders();
-        if (headers != null) {
-            for (Parameter p : headers) {
-                logger.info("   [ Header ] " + String.format("%1$-20s :     %2$s", p.getName(), p.getValue()));
-                request.addHeader(p.getName(), p.getValue().toString());
-            }
-        }
-        // entity builder
-        List<Entity> entities = httpRequest.getEntity();
-        if (entities != null) {
-            for (Entity e : entities) {
-                StringEntity se = new StringEntity(e.getValue(), "utf-8");
-                if (httpRequest.getConnection().equalsIgnoreCase("post")) {
-                    HttpPost post = (HttpPost) request;
-                    post.setEntity(se);
-                } else if (httpRequest.getConnection().equalsIgnoreCase("put")) {
-                    HttpPut put = (HttpPut) request;
-                    put.setEntity(se);
+//        if(CommonApi.checkUrlSyntax(path)) {
+//            if (path.substring(0,4).equals("http")) {
+//                builder.setPath(path);
+//                url = builder.build().toString();
+//                System.out.println("path.substring(0,4).equals : " + url);
+//            } else if (path.contains("?")) {
+//                String[] str = path.split("[?]");
+//                path = str[0];
+//                String leftParas = str[1];
+//                builder.setScheme("http").setHost(host).setPath(path);
+//                url = builder.build().toString() + "&" + leftParas;
+//                System.out.println("path.contains : " + url);
+//            } else {
+//                builder.setScheme("http").setHost(host).setPath(path);
+//                url = builder.build().toString();
+//                System.out.println("else: : " + url);
+//            }
+//        }
+        //要有一个方法判断url的有效性,非法的直接返回错误
+        if(CommonApi.checkUrlSyntax(path)) {
+            //判断url后面是否是带了参数，带参数需要分离?后面的参数和前面的部分
+            if (path.contains("?")) {
+                String[] str = path.split("[?]");
+                path = str[0];
+                String leftParas = str[1];
+                if (path.substring(0, 4).equals("http")) {
+                    builder.setPath(path);
+                    url = builder.build().toString() + "&" + leftParas;
+                    System.out.println("path.substring(0,4).equals : " + url);
+                } else {
+                    builder.setScheme("http").setHost(host).setPath(path);
+                    url = builder.build().toString() + "&" + leftParas;
+                    System.out.println("path.contains : " + url);
                 }
+            } else {
+                if(path.substring(0, 4).equals("http")){
+                    builder.setPath(path);
+                }else{
+                    builder.setScheme("http").setHost(host).setPath(path);
+                }
+                url = builder.build().toString();
+                System.out.println(url);
             }
-        }
-        DefaultHttpClient httpClient = new DefaultHttpClient(); //创建默认的httpClient实例
-
-        HttpResponse response = httpClient.execute(request);
-        String resString = "";
-        if (response.getEntity() != null)
-            resString = EntityUtils.toString(response.getEntity(), "UTF-8");
-        // 当没有可返回的JSONObject时，默认打印出Http响应码
-        if (resString.isEmpty()) {
-            int code = response.getStatusLine().getStatusCode();
-            logger.info("INFO: Didn't get HTTP return entity, response code is: " + code);
+        }else{
             return null;
-        } else {
-            logger.info("   [String: ] " + resString);
-            return resString;
         }
-    }
 
-    public static String sendRequest_GetHTML(Http httpRequest, String host, String path,String leftParas) throws Exception {
-        HttpUriRequest request = null;
-        URIBuilder builder = new URIBuilder();
-        builder.setScheme("http").setHost(host).setPath(path);
-        List<Parameter> paras = httpRequest.getParameters();
-        if (paras != null) {
-            for (Parameter p : paras) {
-                builder.addParameter(p.getName(), p.getValue().toString());
 
-            }
-        }
-        String url = (builder.build() + "&" + leftParas).toString();
 
         if (httpRequest.getConnection().equalsIgnoreCase("post")) {
             logger.info("   [  post  ] " + url);

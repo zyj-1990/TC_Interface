@@ -5,8 +5,14 @@ import com.jolbox.bonecp.BoneCPConfig;
 import com.mysql.fabric.xmlrpc.base.Param;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.testng.Assert;
 import tc.config.ZhaoyanjiConfig;
+import tc.utils.Http;
+import tc.utils.HttpRequest;
 import tc.utils.Parameter;
 
 import java.security.MessageDigest;
@@ -264,5 +270,33 @@ public class CommonApi {
         String rqTime = time.toString().substring(0,time.toString().length()-3);
         rqTime = rqTime + ".000000";
         return rqTime;
+    }
+
+    public static void CheckAllUrlsValidUnderCurPage(Elements urls,Http httpRequest,String host) throws Exception{
+        boolean result = true;
+        //检查url是否合法
+        //url如果合法，调用***方法
+        for(int i = 0; i < urls.size(); i++){
+            String url = urls.get(i).attr("href");
+            System.out.println("url : " + url);
+            String res = HttpRequest.sendRequest_GetHTML(httpRequest,host,url);
+            if(res != null) {
+                Document doc = Jsoup.parse(res);
+                System.out.println(doc);
+                if (doc.title().equals("404 Not Found")) {
+                    result = false;
+                }
+            }
+        }
+        Assert.assertTrue(result,"页面下有的url不能正常访问");
+    }
+
+    public static boolean checkUrlSyntax(String url){
+        if(url.substring(0,4).equals("http")){
+            return true;
+        }else if(url.substring(0,1).equals("/")){
+            return true;
+        }
+        return false;
     }
 }

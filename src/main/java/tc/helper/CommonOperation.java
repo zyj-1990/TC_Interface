@@ -611,8 +611,11 @@ public class CommonOperation extends ZhaoyanjiConfig{
 
     public static String getUrlPath(String pattern,String url){
         String tempUrl = "";
+        System.out.println(url);
         if(url.substring(0,4).equals("http")){
             tempUrl = url.split(pattern)[1];
+            System.out.println(tempUrl);
+            System.out.println( url.split(pattern)[0]);
         }
         return tempUrl;
     }
