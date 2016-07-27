@@ -1,10 +1,9 @@
-package tc.testcase.boen;
+package tc.testcase.cunji;
 
 import net.sf.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import tc.helper.CommonOperation;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Created by zhaoyanji on 2016/7/26.
  */
-public class CheckAllUrlIfValid extends CommonOperation{
+public class CheckAllUrlIfValid extends CommonOperation {
     List<Parameter> paras = new ArrayList<Parameter>();
     String path = "";
     Elements urls = null;
@@ -38,7 +37,7 @@ public class CheckAllUrlIfValid extends CommonOperation{
         paras.add(new Parameter("user_id",user_id));
         paras.add(new Parameter("ent_id",ent_id));
         JSONObject result = newIndex(user_id);
-        path = getUrlPath("71",getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","波恩生殖","wifi_website").toString());
+        path = getUrlPath("com",getOrderInfo(result.getJSONObject("bizobj").getJSONArray("ent_list"),"name","存济网络医院","wifi_website").toString());
         urls = sendUrl(path);
         System.out.println("url : " + urls);
     }
@@ -56,22 +55,28 @@ public class CheckAllUrlIfValid extends CommonOperation{
         for (int i = 0; i < urls.size(); i++) {
             String url = urls.get(i).attr("href");
             Elements elements = sendUrl(url);
-            System.out.println("href :" + elements.attr("href"));
-            if (elements.attr("href") != null){
-                System.out.println("start1");
-                checkAllUrlIfValid(elements);
-                System.out.println("end1");
+            if(elements != null){
+                System.out.println("href :" + elements.attr("href"));
+                if (elements.attr("href") != null){
+                    System.out.println("start1");
+                    checkAllUrlIfValid(elements);
+                    System.out.println("end1");
+                }
             }
         }
     }
 
 
-    public Elements sendUrl(String path) throws Exception{
+    public Elements sendUrl(String path) throws Exception {
         Http httpRequest = new Http("get", paras, headers, null);
         String res = "";
-        res = HttpRequest.sendRequest_GetHTML(httpRequest,CunjiHost,path);
-        Document doc = Jsoup.parse(res);
-        Elements urls = doc.select("a");
-        return urls;
+        res = HttpRequest.sendRequest_GetHTML(httpRequest, CunjiHost, path);
+        if (res != null) {
+            Document doc = Jsoup.parse(res);
+            Elements urls = doc.select("a");
+            return urls;
+        }
+        return null;
     }
+
 }
